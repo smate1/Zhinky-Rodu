@@ -1,271 +1,425 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ua">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alfagram</title>
+  <title>Жінки Роду</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
-  <script src="./js/main.js"></script>
-
-  <link rel="stylesheet" href="./css/fonts.css">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/reset.css">
 </head>
 
 <body>
   <main class="main">
-    <header class="header">
+    <header class="header" data-header-slider>
       <div class="container">
         <div class="header__top">
-          <a href="./index.html" class="header__logo">
-            <img src="./images/logo.svg" alt="logo">
-          </a>
-          <nav class="header__menu">
-            <ul class="header__list">
-              <li class="header__item">
-                <a href="./index.html" class="header__link active">
-                  Главная
-                </a>
-              </li>
-              <li class="header__item">
-                <a href="./faq.html" class="header__link">
-                  FAQ
-                </a>
-              </li>
-              <li class="header__item">
-                <a href="./download.html" class="header__link">
-                  Приложения
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="header__btn">
-            <a href="#" class="header__btn-link">
-              Установить
+          <div class="header__contact">
+            <a class="header__mail" href="mailto:zhinky_rodu@gmail.com">
+              <img src="./images/mail.svg" alt="">
+              <span class="header__contact-email">zhinky_rodu@gmail.com</span>
+            </a>
+            <img class="header__circle" src="./images/elipse.svg" alt="">
+            <a class="header__phone" href="tel:+380996694934">
+              <img src="./images/phone.svg" alt="">
+              <span class="header__contact-phone">+380996694934</span>
             </a>
           </div>
-          <div class="header__burger">
-            <span></span>
-            <span></span>
-            <span></span>
+          <div class="header__right">
+            <div class="header__socials">
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/facebook.svg" alt="">
+              </a>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/youtube.svg" alt="">
+              </a>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/instagram.svg" alt="">
+              </a>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/telegram.svg" alt="">
+              </a>
+            </div>
+            <div class="header__language" data-language-dropdown>
+              <button type="button" class="header__language-trigger" aria-expanded="false" aria-haspopup="listbox"
+                aria-label="Мова">
+                <img class="header__language-icon" src="./images/globe.svg" alt="" aria-hidden="true">
+                <span class="header__language-value">Ukr</span>
+              </button>
+              <ul class="header__language-menu" role="listbox" aria-hidden="true">
+                <li class="header__language-option is-active" role="option" data-value="ua" aria-selected="true">Ukr
+                </li>
+                <li class="header__language-option" role="option" data-value="en" aria-selected="false">Eng</li>
+              </ul>
+              <select class="header__language-native" id="language-select" name="language" tabindex="-1"
+                aria-hidden="true">
+                <option value="ukr" selected>Ukr</option>
+                <option value="en">Eng</option>
+              </select>
+            </div>
           </div>
+        </div>
+        <div class="header__bottom" data-header-bottom>
+          <a class="header__logo" href="#">
+            <img src="./images/header-logo.svg" alt="">
+          </a>
+          <div class="header__center">
+            <nav class="header__nav">
+              <a class="header__nav-link active" href="#">Про фонд</a>
+              <a class="header__nav-link" href="#">Проєкти</a>
+              <a class="header__nav-link" href="#">Партнери</a>
+              <a class="header__nav-link" href="#">Керівництво</a>
+              <a class="header__nav-link" href="#">Новини</a>
+            </nav>
+            <div class="header__search" data-header-search>
+              <form class="header__search-form" role="search" action="#" method="get">
+                <label class="header__search-label" for="header-search-input">Пошук</label>
+                <input type="search" class="header__search-input" id="header-search-input" name="q"
+                  placeholder="Пошук..." autocomplete="off">
+                <button type="button" class="header__search-toggle" aria-expanded="false"
+                  aria-controls="header-search-input" aria-label="Пошук">
+                  <img class="header__search-img" src="./images/search.svg" alt="">
+                </button>
+              </form>
+            </div>
+          </div>
+          <a class="header__help button" href="#">
+            <img src="./images/heart-handshake.svg" alt="">
+            <span>Допомогти</span>
+          </a>
         </div>
         <div class="header__inner">
-          <div class="header__content">
-            <h2 class="header__title title"><span>A</span>lfagram <br> Telegram для
-              детей</h2>
-            <p class="header__description">
-              Сохраняем личное — защищаем главное
-            </p>
-            <p class="header__text">
-              Alfragram работает на базе Telegram.
-              Это полнофункциональный мессенджер Telegram с дополнительными функциями родительского контроля. Весь
-              контент
-              дополнительно проходит фильтрацию с применением современных ИИ-технологий в соответствие с возрастом
-              вашего
-              ребенка и
-              вашими персональными настройками.
-            </p>
-            <div class="header__buttons">
-              <a href="#" class="header__button">
-                <img src="./images/app-store.svg" alt="app-store">
-              </a>
-              <a href="#" class="header__button">
-                <img src="./images/google-play.svg" alt="google-play">
-              </a>
+          <div class="header__slides">
+            <div class="header__slide is-active" data-bg="./images/header-bg.png">
+              <div class="header__content">
+                <h5 class="header__subtitle subtitle">
+                  Благодійний фонд
+                </h5>
+                <h2 class="header__title title">
+                  ЖІНКИ РОДУ
+                </h2>
+                <p class="header__text header__text-line text">
+                  Це благодійна ініціатива, що виникла з глибокої поваги до української жінки, її незламного духу та
+                  історичної ролі
+                  берегині.
+                </p>
+                <p class="header__text text">
+                  Ми об’єднуємо покоління, щоб простягнути руку допомоги тим, хто тримає на своїх плечах майбутнє нашої
+                  країни.
+                </p>
+              </div>
+            </div>
+            <div class="header__slide" data-bg="./images/header-bg-2.png">
+              <div class="header__content">
+                <h5 class="header__subtitle subtitle">
+                  Благодійний фонд
+                </h5>
+                <h2 class="header__title title">
+                  ЖІНКИ РОДУ
+                </h2>
+                <p class="header__text header__text-line text">
+                  Це благодійна ініціатива, що виникла з глибокої поваги до української жінки, її незламного духу та
+                  історичної ролі
+                  берегині.
+                </p>
+                <p class="header__text text">
+                  Ми об’єднуємо покоління, щоб простягнути руку допомоги тим, хто тримає на своїх плечах майбутнє нашої
+                  країни.
+                </p>
+              </div>
+            </div>
+            <div class="header__slide" data-bg="./images/header-bg-3.png">
+              <div class="header__content">
+                <h5 class="header__subtitle subtitle">
+                  Благодійний фонд
+                </h5>
+                <h2 class="header__title title">
+                  ЖІНКИ РОДУ
+                </h2>
+                <p class="header__text header__text-line text">
+                  Це благодійна ініціатива, що виникла з глибокої поваги до української жінки, її незламного духу та
+                  історичної ролі
+                  берегині.
+                </p>
+                <p class="header__text text">
+                  Ми об’єднуємо покоління, щоб простягнути руку допомоги тим, хто тримає на своїх плечах майбутнє нашої
+                  країни.
+                </p>
+              </div>
             </div>
           </div>
-          <div class="header__img-wrapper"><img src="./images/header-content.png" alt="header-img" class="header__img">
-          </div>
-        </div>
-        <div class="header__items">
-          <div class="header__item">
-            <img src="./images/header-item-1.svg" alt="header-item-img" class="header__item-img">
-            <p class="header__item-text">
-              Добавление нового контакта, вступление в группу или просмотр каналов требуют одобрения родителя
-            </p>
-          </div>
-          <div class="header__item">
-            <img src="./images/header-item-2.svg" alt="header-item-img" class="header__item-img">
-            <p class="header__item-text">
-              ИИ в режиме реального времени фильтрует текст, изображение, видео и аудио
-            </p>
-          </div>
-          <div class="header__item">
-            <img src="./images/header-item-3.svg" alt="header-item-img" class="header__item-img">
-            <p class="header__item-text">
-              ИИ уберет из поиска неподходящие возрасту ребенка каналы и отобразит размытыми нежелательные медиа
-              материалы
-            </p>
+          <div class="header__actions">
+            <a class="header__button button" href="#">
+              <img src="./images/button-arrow.svg" alt="">
+              <span>Дізнатись більше</span>
+            </a>
+            <div class="header__slider-dots" role="tablist" aria-label="Слайди">
+              <button type="button" class="header__slider-dot is-active" role="tab" aria-selected="true"
+                aria-label="Слайд 1" data-slide-to="0"></button>
+              <button type="button" class="header__slider-dot" role="tab" aria-selected="false" aria-label="Слайд 2"
+                data-slide-to="1"></button>
+              <button type="button" class="header__slider-dot" role="tab" aria-selected="false" aria-label="Слайд 3"
+                data-slide-to="2"></button>
+            </div>
           </div>
         </div>
       </div>
+      <button type="button" class="header__slider-arrow header__slider-arrow--prev" aria-label="Попередній слайд">
+        <img class="header__slider-arrow-circle" src="./images/slider-arrow-circle-left.svg" alt="" aria-hidden="true">
+        <img class="header__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
+      </button>
+      <button type="button" class="header__slider-arrow header__slider-arrow--next" aria-label="Наступний слайд">
+        <img class="header__slider-arrow-circle" src="./images/slider-arrow-circle-right.svg" alt="" aria-hidden="true">
+        <img class="header__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
+      </button>
+      <div class="header__bg" aria-hidden="true">
+        <div class="header__bg-slide is-active">
+          <div class="header__media"
+            style="--slide-aspect: 1163 / 658; background-image: url('./images/header-bg.png')"></div>
+        </div>
+        <div class="header__bg-slide">
+          <div class="header__media"
+            style="--slide-aspect: 1163 / 658; background-image: url('./images/header-bg-2.png')"></div>
+        </div>
+        <div class="header__bg-slide">
+          <div class="header__media"
+            style="--slide-aspect: 1163 / 658; background-image: url('./images/header-bg-3.png')"></div>
+        </div>
+      </div>
+      <div class="header__person" aria-hidden="true">
+        <div class="header__person-slide is-active">
+          <div class="header__media" style="--slide-aspect: 1163 / 658">
+            <svg class="header__person-decor-bg" width="935" height="380" viewBox="0 0 936 398"
+              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M943.5 374.743C826.5 403.574 795.172 360.685 795.172 294.135C795.172 256.66 839.072 256.191 856.549 283.917C871.546 307.709 872.851 367.022 840.068 378.717C769.2 403.998 693.542 377.924 626.385 354.591C528.337 320.526 428.545 247.339 373.489 157.612C352.101 122.756 275.202 10.1437 367.806 7.57413C514.651 3.49947 553.399 168.499 495.959 270.01C471.89 312.545 414.138 339.749 367.806 346.36C316.626 353.663 237.747 315.169 227.719 260.076C219.472 214.767 269.264 232.574 280.855 262.346C297.852 306.002 258.73 338.084 218.341 338.981C152.244 340.448 99.5942 303.406 55.806 257.237C42.885 243.614 17.111 207.2 12.8987 188.266C9.06784 171.047 9.74877 181.77 12.3305 193.375C14.7492 204.247 7.5 215.236 7.5 226.583C7.5 230.574 12.6146 205.835 12.6146 198.484C12.6146 163.525 59.4916 192.011 79.1066 195.93"
+                stroke="#FED33F" stroke-width="15" stroke-linecap="round" />
+            </svg>
+            <svg class="header__person-decor" width="935" height="380" viewBox="0 0 936 398"
+              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M944 375.169C827 404 795.672 361.111 795.672 294.561C795.672 257.086 839.572 256.617 857.049 284.343C872.046 308.135 873.351 367.448 840.568 379.143C795.712 395.145 748.937 390.572 703.613 379.143C677.33 372.515 651.535 363.582 626.885 355.017C528.837 320.952 429.045 247.765 373.989 158.038C352.601 123.182 275.702 10.5696 368.306 8.00006M228.219 260.502C219.972 215.193 269.764 233 281.355 262.772C298.352 306.427 259.23 338.51 218.841 339.407C152.744 340.874 100.094 303.832 56.306 257.663C43.385 244.04 17.611 207.626 13.3987 188.692C9.56784 171.473 10.2488 182.196 12.8305 193.801C15.2492 204.673 8 215.662 8 227.009C8 231 13.1146 206.261 13.1146 198.91C13.1146 163.951 59.9916 192.437 79.6066 196.355"
+                stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
+            </svg>
+            <img class="header__person-img" src="./images/slide-person.png" alt="" aria-hidden="true">
+          </div>
+        </div>
+        <div class="header__person-slide">
+          <div class="header__media" style="--slide-aspect: 1163 / 658">
+            <svg class="header__person-decor-bg" width="935" height="380" viewBox="0 0 936 398"
+              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M943.5 374.743C826.5 403.574 795.172 360.685 795.172 294.135C795.172 256.66 839.072 256.191 856.549 283.917C871.546 307.709 872.851 367.022 840.068 378.717C769.2 403.998 693.542 377.924 626.385 354.591C528.337 320.526 428.545 247.339 373.489 157.612C352.101 122.756 275.202 10.1437 367.806 7.57413C514.651 3.49947 553.399 168.499 495.959 270.01C471.89 312.545 414.138 339.749 367.806 346.36C316.626 353.663 237.747 315.169 227.719 260.076C219.472 214.767 269.264 232.574 280.855 262.346C297.852 306.002 258.73 338.084 218.341 338.981C152.244 340.448 99.5942 303.406 55.806 257.237C42.885 243.614 17.111 207.2 12.8987 188.266C9.06784 171.047 9.74877 181.77 12.3305 193.375C14.7492 204.247 7.5 215.236 7.5 226.583C7.5 230.574 12.6146 205.835 12.6146 198.484C12.6146 163.525 59.4916 192.011 79.1066 195.93"
+                stroke="#FED33F" stroke-width="15" stroke-linecap="round" />
+            </svg>
+            <svg class="header__person-decor" width="935" height="380" viewBox="0 0 936 398"
+              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M944 375.169C827 404 795.672 361.111 795.672 294.561C795.672 257.086 839.572 256.617 857.049 284.343C872.046 308.135 873.351 367.448 840.568 379.143C795.712 395.145 748.937 390.572 703.613 379.143C677.33 372.515 651.535 363.582 626.885 355.017C528.837 320.952 429.045 247.765 373.989 158.038C352.601 123.182 275.702 10.5696 368.306 8.00006M228.219 260.502C219.972 215.193 269.764 233 281.355 262.772C298.352 306.427 259.23 338.51 218.841 339.407C152.744 340.874 100.094 303.832 56.306 257.663C43.385 244.04 17.611 207.626 13.3987 188.692C9.56784 171.473 10.2488 182.196 12.8305 193.801C15.2492 204.673 8 215.662 8 227.009C8 231 13.1146 206.261 13.1146 198.91C13.1146 163.951 59.9916 192.437 79.6066 196.355"
+                stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
+            </svg>
+            <img class="header__person-img" src="./images/slide-person-2.png" alt="" aria-hidden="true">
+          </div>
+        </div>
+        <div class="header__person-slide">
+          <div class="header__media" style="--slide-aspect: 1163 / 658">
+            <svg class="header__person-decor-bg" width="935" height="380" viewBox="0 0 936 398"
+              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M943.5 374.743C826.5 403.574 795.172 360.685 795.172 294.135C795.172 256.66 839.072 256.191 856.549 283.917C871.546 307.709 872.851 367.022 840.068 378.717C769.2 403.998 693.542 377.924 626.385 354.591C528.337 320.526 428.545 247.339 373.489 157.612C352.101 122.756 275.202 10.1437 367.806 7.57413C514.651 3.49947 553.399 168.499 495.959 270.01C471.89 312.545 414.138 339.749 367.806 346.36C316.626 353.663 237.747 315.169 227.719 260.076C219.472 214.767 269.264 232.574 280.855 262.346C297.852 306.002 258.73 338.084 218.341 338.981C152.244 340.448 99.5942 303.406 55.806 257.237C42.885 243.614 17.111 207.2 12.8987 188.266C9.06784 171.047 9.74877 181.77 12.3305 193.375C14.7492 204.247 7.5 215.236 7.5 226.583C7.5 230.574 12.6146 205.835 12.6146 198.484C12.6146 163.525 59.4916 192.011 79.1066 195.93"
+                stroke="#FED33F" stroke-width="15" stroke-linecap="round" />
+            </svg>
+            <svg class="header__person-decor" width="935" height="380" viewBox="0 0 936 398"
+              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M944 375.169C827 404 795.672 361.111 795.672 294.561C795.672 257.086 839.572 256.617 857.049 284.343C872.046 308.135 873.351 367.448 840.568 379.143C795.712 395.145 748.937 390.572 703.613 379.143C677.33 372.515 651.535 363.582 626.885 355.017C528.837 320.952 429.045 247.765 373.989 158.038C352.601 123.182 275.702 10.5696 368.306 8.00006M228.219 260.502C219.972 215.193 269.764 233 281.355 262.772C298.352 306.427 259.23 338.51 218.841 339.407C152.744 340.874 100.094 303.832 56.306 257.663C43.385 244.04 17.611 207.626 13.3987 188.692C9.56784 171.473 10.2488 182.196 12.8305 193.801C15.2492 204.673 8 215.662 8 227.009C8 231 13.1146 206.261 13.1146 198.91C13.1146 163.951 59.9916 192.437 79.6066 196.355"
+                stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
+            </svg>
+            <img class="header__person-img" src="./images/slide-person-3.png" alt="" aria-hidden="true">
+          </div>
+        </div>
+      </div>
+      <div class="header__corner" aria-hidden="true"></div>
     </header>
-    <section class="standards">
+    <section class="about">
       <div class="container">
-        <h2 class="standards__title title">
-          В <span>A</span>lfragram соблюдены такие же высокие стандарты защиты, обработки и хранения данных, <span>как и
-            в
-            Telegram</span>
-        </h2>
-        <div class="standards__inner">
-          <div class="standards__img-wrapper">
-            <img src="./images/standards-img.png" alt="standards-img" class="standards__img" data-animate="float">
+        <div class="about__inner">
+          <div class="about__left">
+            <img class="about__tree" src="./images/about-tree.svg" alt="" aria-hidden="true">
+            <img class="about__bg" src="./images/about-bg.png" alt="">
+            <svg class="about__decor about__decor--1" width="934" height="765" viewBox="0 0 934 765" fill="none"
+              overflow="visible" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M-425 756.996C-264.331 596.447 -47.0822 456.981 180.812 418.311C242.783 407.796 544.299 355.341 544.299 472.121C544.299 528.053 481.567 518.114 448.478 500.609C383.341 466.15 334.8 433.031 289.304 372.415C219.077 278.851 141.876 127.844 244.956 30.5649C289.444 -11.4188 374.565 12.4619 416.009 43.226C456.642 73.388 483.681 112.096 514.206 151.637C539.016 183.774 532.355 180.512 551.426 144.515C599.294 54.1637 751.631 -9.30653 777.912 131.854C792.658 211.054 766.566 279.817 742.276 352.632C733.152 379.983 719.007 427.529 699.513 449.173C678.289 472.738 666.792 435.16 674.172 415.146C692.519 365.387 717.293 343.927 770.785 343.927C819.163 343.927 883.347 381.518 886.404 436.512C888.1 467.023 895.824 459.558 906.202 436.512C914.254 418.632 926 361.513 926 381.119C926 388.027 925.617 445.209 918.873 449.173C894.863 463.286 862.256 463.547 836.514 472.121"
+                stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
+            </svg>
+            <svg class="about__decor about__decor--2" width="934" height="430" viewBox="0 0 934 430" fill="none"
+              overflow="visible" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M-425 421.069C-264.331 260.519 -47.0822 121.054 180.812 82.384C242.783 71.8685 544.299 19.414 544.299 136.194M699.513 113.246C678.289 136.81 666.792 99.2328 674.172 79.2188C692.519 29.4596 717.293 8 770.785 8C819.163 8 883.347 45.5906 886.404 100.584C888.1 131.096 895.824 123.631 906.202 100.584C914.254 82.7049 926 25.5857 926 45.192C926 52.0997 925.617 109.281 918.873 113.246C894.863 127.358 862.256 127.619 836.514 136.194"
+                stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
+            </svg>
           </div>
-          <div class="standards__content">
-            <div class="standards__item">
-              <img src="./images/standards-phone-1.svg" alt="standards-item-img" class="standards__item-img">
-              <p class="standards__item-text">
-                В качестве серверной инфраструктуры выступает сам Telegram, а клиентская архитектура является
-                надстройкой
-                над клиентом
-                Telegram в соответствие с лицензией GNU GPL v2.
-              </p>
-            </div>
-            <div class="standards__item">
-              <img src="./images/standards-phone-2.svg" alt="standards-item-img" class="standards__item-img">
-              <p class="standards__item-text">
-                ИИ-анализ и фильтрация данных происходит на стороне клиента, поэтому данные переписок не покидают
-                устройства вашего
-                ребенка.
-              </p>
-            </div>
-            <div class="standards__buttons">
-              <a href="#" class="standards__button">
-                <img src="./images/app-store-black.svg" alt="app-store">
-              </a>
-              <a href="#" class="standards__button">
-                <img src="./images/google-play-black.svg" alt="google-play">
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="controls">
-      <div class="container">
-        <h2 class="controls__title title">
-          Родитель управляет
-        </h2>
-        <div class="controls__items">
-          <div class="controls__item">
-            <div class="controls__item-top">
-              <img src="./images/contacts.svg" alt="controls-item-img" class="controls__item-img">
-              <h6 class="controls__item-title">
-                Контакты
-              </h6>
-            </div>
-            <p class="controls__item-text">
-              Управлением списком контактов, групп и каналов ребенка — все действия требуют одобрения
-            </p>
-          </div>
-          <div class="controls__item">
-            <div class="controls__item-top">
-              <img src="./images/ai.svg" alt="controls-item-img" class="controls__item-img">
-              <h6 class="controls__item-title">
-                ИИ
-              </h6>
-            </div>
-            <p class="controls__item-text">
-              Управление параметрами ИИ-фильтрации контента в соответствие с возрастом ребенка и собственным
-              представлением о
-              нравственном цензе
-            </p>
-          </div>
-          <div class="controls__item">
-            <div class="controls__item-top">
-              <img src="./images/time.svg" alt="controls-item-img" class="controls__item-img">
-              <h6 class="controls__item-title">
-                Время
-              </h6>
-            </div>
-            <p class="controls__item-text">
-              Управлением истинным временем, проведенным ребенком в Telegram (без ложной статистики, как у других
-              приложений)
-            </p>
-          </div>
-          <div class="controls__item">
-            <div class="controls__item-top">
-              <img src="./images/contacts.svg" alt="controls-item-img" class="controls__item-img">
-              <h6 class="controls__item-title">
-                Гео
-              </h6>
-            </div>
-            <p class="controls__item-text">
-              Родитель может просматривать геопозицию и маршрут перемещения ребенка
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="container">
-        <div class="footer__inner">
-          <div class="footer__content">
-            <h2 class="footer__title title">
-              Все управление происходит через Telegram-бота
+          <div class="about__content">
+            <h5 class="about__subtitle subtitle">Жінки Роду</h5>
+            <h2 class="about__title title">
+              Про фонд
             </h2>
-            <p class="footer__description">
-              удобно, быстро, <br>
-              без установки дополнительных <br> приложений
+            <p class="about__text text">
+              Ми не просто надаємо базову допомогу — ми інвестуємо в потенціал. Наші напрямки роботи включають
+              психологічну
+              реабілітацію, освітні програми для професійної перекваліфікації, підтримку жіночого ветеранського руху та
+              допомогу
+              дітям.
             </p>
-            <div class="footer__buttons">
-              <a href="#" class="footer__button">
-                <img src="./images/app-store-black.svg" alt="app-store">
-              </a>
-              <a href="#" class="footer__button">
-                <img src="./images/google-play-black.svg" alt="google-play">
-              </a>
-            </div>
+            <p class="about__text-blue">
+              «ЖІНКИ РОДУ» — це живий зв’язок часів, де досвід старших і енергія молодих поєднуються заради відродження
+              життя.
+            </p>
+            <a class="about__button button" href="#">
+              <img src="./images/button-arrow.svg" alt="">
+              <span>Дізнатись більше</span>
+            </a>
           </div>
-          <img src="./images/zombi.png" alt="footer-img" class="footer__img" data-animate="bounce">
-        </div>
-        <div class="footer__copy">
-          © 2025 alfagram.org. All rights reserved.
         </div>
       </div>
-    </footer>
+    </section>
+    <section class="mission">
+      <div class="mission__top-corner" aria-hidden="true"></div>
+      <div class="container">
+        <div class="mission__top">
+          <h2 class="mission__title title">
+            Наша місія та візія
+          </h2>
+          <p class="mission__text text">
+            «Жінки роду» повертає любов до життя з 2015 року.
+            Ми створили та продовжуємо просувати соціальний тренд на безбарʼєрність у соціальному житті суспільства.
+          </p>
+        </div>
+        <div class="mission__inner">
+          <div class="mission__content">
+            <div class="mission__img">
+              <img src="./images/mission-1.png" alt="">
+              <div class="mission__corner">
+                <h5 class="mission__subtitle subtitle">
+                  Місія фонду
+                </h5>
+                <div class="mission__text-blue">
+                  Повертаємо <br>
+                  любов до життя
+                </div>
+              </div>
+            </div>
+            <p class="mission__text text">
+              Підтримуючи старше покоління сьогодні, ми будуємо краще майбутнє для кожного з нас завтра.
+            </p>
+          </div>
+          <div class="mission__content">
+            <div class="mission__img">
+              <img src="./images/mission-2.png" alt="">
+              <div class="mission__corner">
+                <h5 class="mission__subtitle subtitle">
+                  Візія фонду
+                </h5>
+                <div class="mission__text-blue">
+                  Свобода <br>
+                  від стереотипів
+                </div>
+              </div>
+            </div>
+            <p class="mission__text">
+              Ми бачимо Україну без упереджень: де кожен має право жити яскраво та повноцінно в будь-якому віці.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="mission__bottom-corner" aria-hidden="true"></div>
+    </section>
+    <section class="projects">
+      <div class="container">
+        <div class="projects__top">
+          <h5 class="projects__title title">
+            Проекти
+          </h5>
+          <div class="projects__text text">
+            Тут ви можете познайомитись із проєктами фонду «Жінки роду». Так ми станемо ближчими, а ви знайдете для себе
+            проєкт до
+            душі — в якому ви зможете взяти участь як волонтер чи партнер.
+          </div>
+        </div>
+        <div class="projects__inner">
+          <img class="projects__decor" src="./images/project-decor.svg" alt="" aria-hidden="true">
+          <img src="./images/projects.png" alt="">
+          <div class="projects__content">
+            <div class="projects__subtitle subtitle">
+              Простір Жінки роду
+            </div>
+            <p class="projects__text text">
+              Проєкт «Жінки роду поруч» взяв собі за мету подолати гуманітарну кризу в прифронтових та деокупованих ...
+            </p>
+            <a class="project__button button" href="#">
+              <img src="./images/button-arrow.svg" alt="">
+              <span>Дізнатись більше</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
+<script src="./js/main.js"></script>
 
 </html>
