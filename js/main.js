@@ -54,7 +54,45 @@
 		})
 	})
 })()
+;(function () {
+	const dropdowns = document.querySelectorAll('[data-projects-dropdown]')
 
+	dropdowns.forEach(dropdown => {
+		const trigger = dropdown.querySelector('.header__nav-dropdown-trigger')
+		const menu = dropdown.querySelector('.header__nav-dropdown-menu')
+		const arrow = dropdown.querySelector('.header__nav-dropdown-arrow')
+
+		if (!trigger || !menu) return
+
+		const open = () => {
+			dropdown.classList.add('is-open')
+			trigger.setAttribute('aria-expanded', 'true')
+			menu.setAttribute('aria-hidden', 'false')
+		}
+
+		const close = () => {
+			dropdown.classList.remove('is-open')
+			trigger.setAttribute('aria-expanded', 'false')
+			menu.setAttribute('aria-hidden', 'true')
+		}
+
+		const toggle = event => {
+			event.stopPropagation()
+			dropdown.classList.contains('is-open') ? close() : open()
+		}
+
+		trigger.addEventListener('click', toggle)
+		arrow?.addEventListener('click', toggle)
+
+		document.addEventListener('click', event => {
+			if (!dropdown.contains(event.target)) close()
+		})
+
+		document.addEventListener('keydown', event => {
+			if (event.key === 'Escape') close()
+		})
+	})
+})()
 ;(function () {
 	const searchBlocks = document.querySelectorAll('[data-header-search]')
 
@@ -95,7 +133,56 @@
 		})
 	})
 })()
+;(function () {
+	const headerTop = document.querySelector('.header__top')
+	const headerBottom = document.querySelector('[data-header-bottom]')
 
+	if (!headerTop || !headerBottom) return
+
+	const spacer = document.createElement('div')
+	spacer.className = 'header__bottom-spacer'
+	spacer.setAttribute('aria-hidden', 'true')
+	headerBottom.after(spacer)
+
+	const setSticky = isSticky => {
+		const isCurrentlySticky = headerBottom.classList.contains('is-sticky')
+
+		if (isSticky && !isCurrentlySticky) {
+			spacer.style.height = `${headerBottom.offsetHeight}px`
+			headerBottom.classList.add('is-sticky')
+		} else if (!isSticky && isCurrentlySticky) {
+			headerBottom.classList.remove('is-sticky')
+			spacer.style.height = '0'
+		}
+	}
+
+	const updateSticky = () => {
+		setSticky(headerTop.getBoundingClientRect().bottom <= 0)
+	}
+
+	let ticking = false
+
+	window.addEventListener(
+		'scroll',
+		() => {
+			if (ticking) return
+			ticking = true
+			requestAnimationFrame(() => {
+				updateSticky()
+				ticking = false
+			})
+		},
+		{ passive: true },
+	)
+
+	window.addEventListener('resize', () => {
+		if (headerBottom.classList.contains('is-sticky')) {
+			spacer.style.height = `${headerBottom.offsetHeight}px`
+		}
+	})
+
+	updateSticky()
+})()
 ;(function () {
 	const slider = document.querySelector('[data-header-slider]')
 	if (!slider) return
@@ -141,6 +228,335 @@
 		dot.addEventListener('click', () => {
 			const index = Number(dot.dataset.slideTo)
 			if (!Number.isNaN(index)) goToSlide(index)
+		})
+	})
+})()
+;(function () {
+	const slider = document.querySelector('[data-projects-slider]')
+	if (!slider) return
+
+	const track = slider.querySelector('.projects__slider-track')
+	const dots = slider.querySelectorAll('.projects__slider-dot')
+	const prevBtn = slider.querySelector('.projects__slider-arrow--prev')
+	const nextBtn = slider.querySelector('.projects__slider-arrow--next')
+
+	if (!track) return
+
+	const slidesPerView = 4
+	let items = [...track.querySelectorAll('.projects__slider-item')]
+	const originalCount = items.length
+
+	if (!originalCount) return
+
+	const totalPages = Math.ceil(originalCount / slidesPerView)
+
+	const prependFragment = document.createDocumentFragment()
+	for (let i = originalCount - slidesPerView; i < originalCount; i++) {
+		prependFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.insertBefore(prependFragment, track.firstChild)
+
+	const appendFragment = document.createDocumentFragment()
+	for (let i = 0; i < slidesPerView; i++) {
+		appendFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.appendChild(appendFragment)
+
+	items = [...track.querySelectorAll('.projects__slider-item')]
+
+	let position = slidesPerView
+
+	const getItemStep = () => {
+		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
+		return items[0].offsetWidth + gap
+	}
+
+	const getOffset = index => index * getItemStep()
+
+	const getLogicalPage = index => {
+		if (index >= slidesPerView + originalCount) return 0
+		if (index < slidesPerView) return totalPages - 1
+		return (index - slidesPerView) / slidesPerView
+	}
+
+	const updateDots = page => {
+		dots.forEach((dot, i) => {
+			const isActive = i === page
+			dot.classList.toggle('is-active', isActive)
+			dot.setAttribute('aria-selected', isActive ? 'true' : 'false')
+		})
+	}
+
+	const setPosition = (index, animate = true) => {
+		position = index
+		track.style.transition = animate ? 'transform 0.5s ease' : 'none'
+		track.style.transform = `translateX(-${getOffset(index)}px)`
+		updateDots(getLogicalPage(index))
+	}
+
+	track.addEventListener('transitionend', event => {
+		if (event.propertyName !== 'transform') return
+
+		if (position >= slidesPerView + originalCount) {
+			setPosition(slidesPerView, false)
+		} else if (position < slidesPerView) {
+			setPosition(slidesPerView + (totalPages - 1) * slidesPerView, false)
+		}
+	})
+
+	const goNext = () => setPosition(position + slidesPerView, true)
+	const goPrev = () => setPosition(position - slidesPerView, true)
+
+	const goToPage = page => {
+		setPosition(slidesPerView + page * slidesPerView, true)
+	}
+
+	prevBtn?.addEventListener('click', goPrev)
+	nextBtn?.addEventListener('click', goNext)
+
+	dots.forEach(dot => {
+		dot.addEventListener('click', () => {
+			const index = Number(dot.dataset.slideTo)
+			if (!Number.isNaN(index)) goToPage(index)
+		})
+	})
+
+	setPosition(slidesPerView, false)
+
+	window.addEventListener('resize', () => {
+		setPosition(position, false)
+	})
+})()
+;(function () {
+	const slider = document.querySelector('[data-media-slider]')
+	if (!slider) return
+
+	const track = slider.querySelector('.media__slider-track')
+	const dots = slider.querySelectorAll('.media__slider-dot')
+	const prevBtn = slider.querySelector('.media__slider-arrow--prev')
+	const nextBtn = slider.querySelector('.media__slider-arrow--next')
+
+	if (!track) return
+
+	const slidesPerView = 4
+	let items = [...track.querySelectorAll('.media__slider-item')]
+	const originalCount = items.length
+
+	if (!originalCount) return
+
+	const totalPages = Math.ceil(originalCount / slidesPerView)
+
+	const prependFragment = document.createDocumentFragment()
+	for (let i = originalCount - slidesPerView; i < originalCount; i++) {
+		prependFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.insertBefore(prependFragment, track.firstChild)
+
+	const appendFragment = document.createDocumentFragment()
+	for (let i = 0; i < slidesPerView; i++) {
+		appendFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.appendChild(appendFragment)
+
+	items = [...track.querySelectorAll('.media__slider-item')]
+
+	let position = slidesPerView
+
+	const getItemStep = () => {
+		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
+		return items[0].offsetWidth + gap
+	}
+
+	const getOffset = index => index * getItemStep()
+
+	const getLogicalPage = index => {
+		if (index >= slidesPerView + originalCount) return 0
+		if (index < slidesPerView) return totalPages - 1
+		return (index - slidesPerView) / slidesPerView
+	}
+
+	const updateDots = page => {
+		dots.forEach((dot, i) => {
+			const isActive = i === page
+			dot.classList.toggle('is-active', isActive)
+			dot.setAttribute('aria-selected', isActive ? 'true' : 'false')
+		})
+	}
+
+	const setPosition = (index, animate = true) => {
+		position = index
+		track.style.transition = animate ? 'transform 0.5s ease' : 'none'
+		track.style.transform = `translateX(-${getOffset(index)}px)`
+		updateDots(getLogicalPage(index))
+	}
+
+	track.addEventListener('transitionend', event => {
+		if (event.propertyName !== 'transform') return
+
+		if (position >= slidesPerView + originalCount) {
+			setPosition(slidesPerView, false)
+		} else if (position < slidesPerView) {
+			setPosition(slidesPerView + (totalPages - 1) * slidesPerView, false)
+		}
+	})
+
+	const goNext = () => setPosition(position + slidesPerView, true)
+	const goPrev = () => setPosition(position - slidesPerView, true)
+
+	const goToPage = page => {
+		setPosition(slidesPerView + page * slidesPerView, true)
+	}
+
+	prevBtn?.addEventListener('click', goPrev)
+	nextBtn?.addEventListener('click', goNext)
+
+	dots.forEach(dot => {
+		dot.addEventListener('click', () => {
+			const index = Number(dot.dataset.slideTo)
+			if (!Number.isNaN(index)) goToPage(index)
+		})
+	})
+
+	setPosition(slidesPerView, false)
+
+	window.addEventListener('resize', () => {
+		setPosition(position, false)
+	})
+})()
+;(function () {
+	const slider = document.querySelector('[data-activities-slider]')
+	if (!slider) return
+
+	const track = slider.querySelector('.activities__slider-track')
+	const dots = slider.querySelectorAll('.activities__slider-dot')
+	const prevBtn = slider.querySelector('.activities__slider-arrow--prev')
+	const nextBtn = slider.querySelector('.activities__slider-arrow--next')
+
+	if (!track) return
+
+	const slidesPerView = 4
+	let items = [...track.querySelectorAll('.activities__slider-item')]
+	const originalCount = items.length
+
+	if (!originalCount) return
+
+	const totalPages = Math.ceil(originalCount / slidesPerView)
+
+	const prependFragment = document.createDocumentFragment()
+	for (let i = originalCount - slidesPerView; i < originalCount; i++) {
+		prependFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.insertBefore(prependFragment, track.firstChild)
+
+	const appendFragment = document.createDocumentFragment()
+	for (let i = 0; i < slidesPerView; i++) {
+		appendFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.appendChild(appendFragment)
+
+	items = [...track.querySelectorAll('.activities__slider-item')]
+
+	let position = slidesPerView
+
+	const getItemStep = () => {
+		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
+		return items[0].offsetWidth + gap
+	}
+
+	const getOffset = index => index * getItemStep()
+
+	const getLogicalPage = index => {
+		if (index >= slidesPerView + originalCount) return 0
+		if (index < slidesPerView) return totalPages - 1
+		return (index - slidesPerView) / slidesPerView
+	}
+
+	const updateDots = page => {
+		dots.forEach((dot, i) => {
+			const isActive = i === page
+			dot.classList.toggle('is-active', isActive)
+			dot.setAttribute('aria-selected', isActive ? 'true' : 'false')
+		})
+	}
+
+	const setPosition = (index, animate = true) => {
+		position = index
+		track.style.transition = animate ? 'transform 0.5s ease' : 'none'
+		track.style.transform = `translateX(-${getOffset(index)}px)`
+		updateDots(getLogicalPage(index))
+	}
+
+	track.addEventListener('transitionend', event => {
+		if (event.propertyName !== 'transform') return
+
+		if (position >= slidesPerView + originalCount) {
+			setPosition(slidesPerView, false)
+		} else if (position < slidesPerView) {
+			setPosition(slidesPerView + (totalPages - 1) * slidesPerView, false)
+		}
+	})
+
+	const goNext = () => setPosition(position + slidesPerView, true)
+	const goPrev = () => setPosition(position - slidesPerView, true)
+
+	const goToPage = page => {
+		setPosition(slidesPerView + page * slidesPerView, true)
+	}
+
+	prevBtn?.addEventListener('click', goPrev)
+	nextBtn?.addEventListener('click', goNext)
+
+	dots.forEach(dot => {
+		dot.addEventListener('click', () => {
+			const index = Number(dot.dataset.slideTo)
+			if (!Number.isNaN(index)) goToPage(index)
+		})
+	})
+
+	setPosition(slidesPerView, false)
+
+	window.addEventListener('resize', () => {
+		setPosition(position, false)
+	})
+})()
+;(function () {
+	const downloadButtons = document.querySelectorAll('.reports__download[data-download]')
+
+	downloadButtons.forEach(button => {
+		button.addEventListener('click', async () => {
+			const url = button.dataset.download
+			if (!url || url === '#') return
+
+			const fileName =
+				button.dataset.downloadName || url.split('/').pop() || 'download'
+
+			try {
+				const response = await fetch(url)
+
+				if (!response.ok) {
+					throw new Error('File not found')
+				}
+
+				const blob = await response.blob()
+				const objectUrl = URL.createObjectURL(blob)
+				const link = document.createElement('a')
+
+				link.href = objectUrl
+				link.download = fileName
+				link.rel = 'noopener'
+				document.body.appendChild(link)
+				link.click()
+				link.remove()
+				URL.revokeObjectURL(objectUrl)
+			} catch {
+				const link = document.createElement('a')
+				link.href = url
+				link.download = fileName
+				link.rel = 'noopener'
+				document.body.appendChild(link)
+				link.click()
+				link.remove()
+			}
 		})
 	})
 })()

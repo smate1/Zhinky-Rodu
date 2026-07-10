@@ -72,7 +72,19 @@
           <div class="header__center">
             <nav class="header__nav">
               <a class="header__nav-link active" href="#">Про фонд</a>
-              <a class="header__nav-link" href="#">Проєкти</a>
+              <div class="header__nav-dropdown" data-projects-dropdown>
+                <button type="button" class="header__nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"
+                  aria-controls="projects-dropdown-menu">
+                  <span>Проєкти</span>
+                </button>
+                <img class="header__nav-dropdown-arrow" src="./images/dropdown-arrow.svg" alt="" aria-hidden="true">
+                <ul class="header__nav-dropdown-menu" id="projects-dropdown-menu" aria-hidden="true">
+                  <li><a class="header__nav-dropdown-link" href="#">Світло поколінь</a></li>
+                  <li><a class="header__nav-dropdown-link" href="#">Материнське дерево</a></li>
+                  <li><a class="header__nav-dropdown-link" href="#">Коріння життя</a></li>
+                  <li><a class="header__nav-dropdown-link" href="#">Від матері до доньки</a></li>
+                </ul>
+              </div>
               <a class="header__nav-link" href="#">Партнери</a>
               <a class="header__nav-link" href="#">Керівництво</a>
               <a class="header__nav-link" href="#">Новини</a>
@@ -369,20 +381,654 @@
             <p class="projects__text text">
               Проєкт «Жінки роду поруч» взяв собі за мету подолати гуманітарну кризу в прифронтових та деокупованих ...
             </p>
-            <a class="project__button button" href="#">
+            <a class="projects__button button" href="#">
               <img src="./images/button-arrow.svg" alt="">
               <span>Дізнатись більше</span>
             </a>
           </div>
         </div>
       </div>
+      <div class="projects__slider" data-projects-slider>
+        <div class="projects__slider-body">
+          <div class="projects__slider-viewport">
+            <div class="projects__slider-track">
+              <a class="projects__slider-item" href="#">
+                <img class="projects__slider-img" src="./images/slider-1.png" alt="">
+                <div class="projects__slider-action">
+                  <img class="projects__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="projects__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="projects__slider-content">
+                  <div class="projects__slider-subtitle subtitle">
+                    Гуманітарний хаб
+                  </div>
+                  <p class="projects__slider-text">
+                    Проєкт доставки гуманітарної допомоги. 
+                    Внаслідок військових дій росії на території України
+                  </p>
+                </div>
+              </a>
+              <a class="projects__slider-item" href="#">
+                <img class="projects__slider-img" src="./images/slider-2.png" alt="">
+                <div class="projects__slider-action">
+                  <img class="projects__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="projects__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="projects__slider-content">
+                  <div class="projects__slider-subtitle subtitle">
+                    Mind-Body Medicine стартують у кожному сервісі Save Ukraine
+                  </div>
+                  <p class="projects__slider-text">
+                    З липня в усіх осередках Save Ukraine стартують спеціалізовані групи з Mind-Body Medicine
+                  </p>
+                </div>
+              </a>
+              <a class="projects__slider-item" href="#">
+                <img class="projects__slider-img" src="./images/slider-3.png" alt="">
+                <div class="projects__slider-action">
+                  <img class="projects__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="projects__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="projects__slider-content">
+                  <div class="projects__slider-subtitle subtitle">
+                    Програма «Впевнений крок» вже працює в Ірпені
+                  </div>
+                  <p class="projects__slider-text">
+                    Фахівці програми Раннього втручання завершили навчання за курсом «Тренінг навичок піклування
+                  </p>
+                </div>
+              </a>
+              <a class="projects__slider-item" href="#">
+                <img class="projects__slider-img" src="./images/slider-4.png" alt="">
+                <div class="projects__slider-action">
+                  <img class="projects__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="projects__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="projects__slider-content">
+                  <div class="projects__slider-subtitle subtitle">
+                    Обід без Бід
+                  </div>
+                  <p class="projects__slider-text">
+                    Проєкт, де Ба та Ді щодня отримують смачну та корисну гарячу їжу в жовтих дерев’яних будиночках
+                    «Обі...
+                  </p>
+                </div>
+              </a>
+              <a class="projects__slider-item" href="#">
+                <img class="projects__slider-img" src="./images/slider-1.png" alt="">
+                <div class="projects__slider-action">
+                  <img class="projects__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="projects__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="projects__slider-content">
+                  <div class="projects__slider-subtitle subtitle">
+                    Гуманітарний хаб
+                  </div>
+                  <p class="projects__slider-text">
+                    Проєкт доставки гуманітарної допомоги. 
+                    Внаслідок військових дій росії на території України
+                  </p>
+                </div>
+              </a>
+              <a class="projects__slider-item" href="#">
+                <img class="projects__slider-img" src="./images/slider-2.png" alt="">
+                <div class="projects__slider-action">
+                  <img class="projects__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="projects__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="projects__slider-content">
+                  <div class="projects__slider-subtitle subtitle">
+                    Mind-Body Medicine стартують у кожному сервісі Save Ukraine
+                  </div>
+                  <p class="projects__slider-text">
+                    З липня в усіх осередках Save Ukraine стартують спеціалізовані групи з Mind-Body Medicine
+                  </p>
+                </div>
+              </a>
+              <a class="projects__slider-item" href="#">
+                <img class="projects__slider-img" src="./images/slider-3.png" alt="">
+                <div class="projects__slider-action">
+                  <img class="projects__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="projects__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="projects__slider-content">
+                  <div class="projects__slider-subtitle subtitle">
+                    Програма «Впевнений крок» вже працює в Ірпені
+                  </div>
+                  <p class="projects__slider-text">
+                    Фахівці програми Раннього втручання завершили навчання за курсом «Тренінг навичок піклування
+                  </p>
+                </div>
+              </a>
+              <a class="projects__slider-item" href="#">
+                <img class="projects__slider-img" src="./images/slider-4.png" alt="">
+                <div class="projects__slider-action">
+                  <img class="projects__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="projects__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="projects__slider-content">
+                  <div class="projects__slider-subtitle subtitle">
+                    Обід без Бід
+                  </div>
+                  <p class="projects__slider-text">
+                    Проєкт, де Ба та Ді щодня отримують смачну та корисну гарячу їжу в жовтих дерев’яних будиночках
+                    «Обі...
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <button type="button" class="projects__slider-arrow projects__slider-arrow--prev"
+            aria-label="Попередній слайд">
+            <img class="projects__slider-arrow-circle" src="./images/projects-slider-arrow-circle-left.svg" alt=""
+              aria-hidden="true">
+            <img class="projects__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
+          </button>
+          <button type="button" class="projects__slider-arrow projects__slider-arrow--next"
+            aria-label="Наступний слайд">
+            <img class="projects__slider-arrow-circle" src="./images/projects-slider-arrow-circle-right.svg" alt=""
+              aria-hidden="true">
+            <img class="projects__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
+          </button>
+        </div>
+        <div class="projects__slider-dots" role="tablist" aria-label="Слайди проєктів">
+          <button type="button" class="projects__slider-dot is-active" role="tab" aria-selected="true"
+            aria-label="Слайд 1" data-slide-to="0"></button>
+          <button type="button" class="projects__slider-dot" role="tab" aria-selected="false" aria-label="Слайд 2"
+            data-slide-to="1"></button>
+        </div>
+      </div>
     </section>
-
-
-
-
-
-
+    <section class="leadership">
+      <img class="leadership__decor" src="./images/leadership-decor.svg" alt="" aria-hidden="true">
+      <div class="container">
+        <div class="leadership__inner">
+          <div class="leadership__content">
+            <h2 class="leadership__title title">
+              Керівництво фонду
+            </h2>
+            <p class="leadership__text text">
+              Наша команда об’єднує абсолютно різних фахівців: від волонтерів та координаторів проєктів до професійних
+              психологів,
+              юристів та креативників.
+            </p>
+            <div class="leadership__subtitle">
+              Проте нас єднає спільний «культурний код» та глибока повага до українських традицій і майбутнього нашої
+              країни.
+            </div>
+            <a href="#" class="leadership__button button">
+              <img src="./images/team.svg" alt="">
+              <span>Команда</span>
+            </a>
+          </div>
+          <div class="leadership__cofounder">
+            <div class="leadership__cofounder-photo">
+              <img class="leadership__cofounder-circle" src="./images/leadership-circle.svg" alt="" aria-hidden="true">
+              <div class="leadership__cofounder-img-wrap">
+                <img class="leadership__cofounder-img" src="./images/cofounder.png" alt="Марина Ватуліна">
+              </div>
+            </div>
+            <div class="leadership__cofounder-content">
+              <div class="leadership__cofounder-name">
+                Марина Ватуліна
+              </div>
+              <div class="leadership__cofounder-description">
+                Співзасновниця і керівниця фонду
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="reports">
+      <div class="container">
+        <div class="reports__title title">
+          Звіти про діяльність
+        </div>
+        <div class="reports__inner">
+          <ul class="reports__list">
+            <li class="reports__row">
+              <div class="reports__cell reports__cell--name">Річний звіт за 2025 рік</div>
+              <div class="reports__cell reports__cell--desc">Ліцензія на медичну практику</div>
+              <div class="reports__cell reports__cell--date">20.06.2026</div>
+              <div class="reports__cell reports__cell--download">
+                <button type="button" class="reports__download" data-download="./files/zvit-2025-licenziya.pdf"
+                  data-download-name="zvit-2025-licenziya.pdf">
+                  <img class="reports__download-icon" src="./images/pdf.svg" alt="">
+                  <span>Завантажити PDF</span>
+                </button>
+              </div>
+            </li>
+            <li class="reports__row">
+              <div class="reports__cell reports__cell--name">Річний звіт за 2025 рік</div>
+              <div class="reports__cell reports__cell--desc">Офіційна редакція статуту</div>
+              <div class="reports__cell reports__cell--date">14.06.2026</div>
+              <div class="reports__cell reports__cell--download">
+                <button type="button" class="reports__download" data-download="./files/zvit-2025-statut.doc"
+                  data-download-name="zvit-2025-statut.doc">
+                  <img class="reports__download-icon" src="./images/doc.svg" alt="">
+                  <span>Завантажити DOC</span>
+                </button>
+              </div>
+            </li>
+            <li class="reports__row">
+              <div class="reports__cell reports__cell--name">Річний звіт за 2024 рік</div>
+              <div class="reports__cell reports__cell--desc">Ліцензія на медичну практику</div>
+              <div class="reports__cell reports__cell--date">20.06.2026</div>
+              <div class="reports__cell reports__cell--download">
+                <button type="button" class="reports__download" data-download="./files/zvit-2024-licenziya.xls"
+                  data-download-name="zvit-2024-licenziya.xls">
+                  <img class="reports__download-icon" src="./images/xls.svg" alt="">
+                  <span>Завантажити XLS</span>
+                </button>
+              </div>
+            </li>
+            <li class="reports__row">
+              <div class="reports__cell reports__cell--name">Річний звіт за 2025 рік</div>
+              <div class="reports__cell reports__cell--desc">Офіційна редакція статуту</div>
+              <div class="reports__cell reports__cell--date">14.06.2026</div>
+              <div class="reports__cell reports__cell--download">
+                <button type="button" class="reports__download" data-download="./files/zvit-2025-statut.doc"
+                  data-download-name="zvit-2025-statut.doc">
+                  <img class="reports__download-icon" src="./images/doc.svg" alt="">
+                  <span>Завантажити DOC</span>
+                </button>
+              </div>
+            </li>
+          </ul>
+          <a href="#" class="reports__button button">
+            <img src="./images/docs.svg" alt="">
+            <span>Всі документи</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="media">
+      <div class="container">
+        <h2 class="media__title title">
+          ЗМІ про нас
+        </h2>
+      </div>
+      <div class="media__slider" data-media-slider>
+        <div class="media__slider-body">
+          <div class="media__slider-viewport">
+            <div class="media__slider-track">
+              <a class="media__slider-item" href="#">
+                <img class="media__slider-img" src="./images/slider-1.png" alt="">
+                <div class="media__slider-action">
+                  <img class="media__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="media__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="media__slider-content">
+                  <div class="media__slider-subtitle subtitle">
+                    Гуманітарний хаб
+                  </div>
+                  <p class="media__slider-text">
+                    Проєкт доставки гуманітарної допомоги.
+                    Внаслідок військових дій росії на території України
+                  </p>
+                </div>
+              </a>
+              <a class="media__slider-item" href="#">
+                <img class="media__slider-img" src="./images/slider-2.png" alt="">
+                <div class="media__slider-action">
+                  <img class="media__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="media__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="media__slider-content">
+                  <div class="media__slider-subtitle subtitle">
+                    Mind-Body Medicine стартують у кожному сервісі Save Ukraine
+                  </div>
+                  <p class="media__slider-text">
+                    З липня в усіх осередках Save Ukraine стартують спеціалізовані групи з Mind-Body Medicine
+                  </p>
+                </div>
+              </a>
+              <a class="media__slider-item" href="#">
+                <img class="media__slider-img" src="./images/slider-3.png" alt="">
+                <div class="media__slider-action">
+                  <img class="media__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="media__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="media__slider-content">
+                  <div class="media__slider-subtitle subtitle">
+                    Програма «Впевнений крок» вже працює в Ірпені
+                  </div>
+                  <p class="media__slider-text">
+                    Фахівці програми Раннього втручання завершили навчання за курсом «Тренінг навичок піклування
+                  </p>
+                </div>
+              </a>
+              <a class="media__slider-item" href="#">
+                <img class="media__slider-img" src="./images/slider-4.png" alt="">
+                <div class="media__slider-action">
+                  <img class="media__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="media__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="media__slider-content">
+                  <div class="media__slider-subtitle subtitle">
+                    Обід без Бід
+                  </div>
+                  <p class="media__slider-text">
+                    Проєкт, де Ба та Ді щодня отримують смачну та корисну гарячу їжу в жовтих дерев’яних будиночках
+                    «Обі...
+                  </p>
+                </div>
+              </a>
+              <a class="media__slider-item" href="#">
+                <img class="media__slider-img" src="./images/slider-1.png" alt="">
+                <div class="media__slider-action">
+                  <img class="media__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="media__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="media__slider-content">
+                  <div class="media__slider-subtitle subtitle">
+                    Гуманітарний хаб
+                  </div>
+                  <p class="media__slider-text">
+                    Проєкт доставки гуманітарної допомоги.
+                    Внаслідок військових дій росії на території України
+                  </p>
+                </div>
+              </a>
+              <a class="media__slider-item" href="#">
+                <img class="media__slider-img" src="./images/slider-2.png" alt="">
+                <div class="media__slider-action">
+                  <img class="media__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="media__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="media__slider-content">
+                  <div class="media__slider-subtitle subtitle">
+                    Mind-Body Medicine стартують у кожному сервісі Save Ukraine
+                  </div>
+                  <p class="media__slider-text">
+                    З липня в усіх осередках Save Ukraine стартують спеціалізовані групи з Mind-Body Medicine
+                  </p>
+                </div>
+              </a>
+              <a class="media__slider-item" href="#">
+                <img class="media__slider-img" src="./images/slider-3.png" alt="">
+                <div class="media__slider-action">
+                  <img class="media__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="media__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="media__slider-content">
+                  <div class="media__slider-subtitle subtitle">
+                    Програма «Впевнений крок» вже працює в Ірпені
+                  </div>
+                  <p class="media__slider-text">
+                    Фахівці програми Раннього втручання завершили навчання за курсом «Тренінг навичок піклування
+                  </p>
+                </div>
+              </a>
+              <a class="media__slider-item" href="#">
+                <img class="media__slider-img" src="./images/slider-4.png" alt="">
+                <div class="media__slider-action">
+                  <img class="media__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="media__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="media__slider-content">
+                  <div class="media__slider-subtitle subtitle">
+                    Обід без Бід
+                  </div>
+                  <p class="media__slider-text">
+                    Проєкт, де Ба та Ді щодня отримують смачну та корисну гарячу їжу в жовтих дерев’яних будиночках
+                    «Обі...
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <button type="button" class="media__slider-arrow media__slider-arrow--prev"
+            aria-label="Попередній слайд">
+            <img class="media__slider-arrow-circle" src="./images/projects-slider-arrow-circle-left.svg" alt=""
+              aria-hidden="true">
+            <img class="media__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
+          </button>
+          <button type="button" class="media__slider-arrow media__slider-arrow--next"
+            aria-label="Наступний слайд">
+            <img class="media__slider-arrow-circle" src="./images/projects-slider-arrow-circle-right.svg" alt=""
+              aria-hidden="true">
+            <img class="media__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
+          </button>
+        </div>
+        <div class="media__slider-dots" role="tablist" aria-label="Слайди ЗМІ">
+          <button type="button" class="media__slider-dot is-active" role="tab" aria-selected="true"
+            aria-label="Слайд 1" data-slide-to="0"></button>
+          <button type="button" class="media__slider-dot" role="tab" aria-selected="false" aria-label="Слайд 2"
+            data-slide-to="1"></button>
+        </div>
+      </div>
+    </section>
+    <section class="activities">
+      <div class="container">
+        <h2 class="activities__title title">
+          Міжнародна діяльність
+        </h2>
+      </div>
+      <div class="activities__slider" data-activities-slider>
+        <div class="activities__slider-body">
+          <div class="activities__slider-viewport">
+            <div class="activities__slider-track">
+              <a class="activities__slider-item" href="#">
+                <img class="activities__slider-img" src="./images/slider-1.png" alt="">
+                <div class="activities__slider-action">
+                  <img class="activities__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="activities__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="activities__slider-content">
+                  <div class="activities__slider-subtitle subtitle">
+                    Гуманітарний хаб
+                  </div>
+                  <p class="activities__slider-text">
+                    Проєкт доставки гуманітарної допомоги.
+                    Внаслідок військових дій росії на території України
+                  </p>
+                </div>
+              </a>
+              <a class="activities__slider-item" href="#">
+                <img class="activities__slider-img" src="./images/slider-2.png" alt="">
+                <div class="activities__slider-action">
+                  <img class="activities__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="activities__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="activities__slider-content">
+                  <div class="activities__slider-subtitle subtitle">
+                    Mind-Body Medicine стартують у кожному сервісі Save Ukraine
+                  </div>
+                  <p class="activities__slider-text">
+                    З липня в усіх осередках Save Ukraine стартують спеціалізовані групи з Mind-Body Medicine
+                  </p>
+                </div>
+              </a>
+              <a class="activities__slider-item" href="#">
+                <img class="activities__slider-img" src="./images/slider-3.png" alt="">
+                <div class="activities__slider-action">
+                  <img class="activities__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="activities__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="activities__slider-content">
+                  <div class="activities__slider-subtitle subtitle">
+                    Програма «Впевнений крок» вже працює в Ірпені
+                  </div>
+                  <p class="activities__slider-text">
+                    Фахівці програми Раннього втручання завершили навчання за курсом «Тренінг навичок піклування
+                  </p>
+                </div>
+              </a>
+              <a class="activities__slider-item" href="#">
+                <img class="activities__slider-img" src="./images/slider-4.png" alt="">
+                <div class="activities__slider-action">
+                  <img class="activities__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="activities__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="activities__slider-content">
+                  <div class="activities__slider-subtitle subtitle">
+                    Обід без Бід
+                  </div>
+                  <p class="activities__slider-text">
+                    Проєкт, де Ба та Ді щодня отримують смачну та корисну гарячу їжу в жовтих дерев’яних будиночках
+                    «Обі...
+                  </p>
+                </div>
+              </a>
+              <a class="activities__slider-item" href="#">
+                <img class="activities__slider-img" src="./images/slider-1.png" alt="">
+                <div class="activities__slider-action">
+                  <img class="activities__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="activities__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="activities__slider-content">
+                  <div class="activities__slider-subtitle subtitle">
+                    Гуманітарний хаб
+                  </div>
+                  <p class="activities__slider-text">
+                    Проєкт доставки гуманітарної допомоги.
+                    Внаслідок військових дій росії на території України
+                  </p>
+                </div>
+              </a>
+              <a class="activities__slider-item" href="#">
+                <img class="activities__slider-img" src="./images/slider-2.png" alt="">
+                <div class="activities__slider-action">
+                  <img class="activities__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="activities__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="activities__slider-content">
+                  <div class="activities__slider-subtitle subtitle">
+                    Mind-Body Medicine стартують у кожному сервісі Save Ukraine
+                  </div>
+                  <p class="activities__slider-text">
+                    З липня в усіх осередках Save Ukraine стартують спеціалізовані групи з Mind-Body Medicine
+                  </p>
+                </div>
+              </a>
+              <a class="activities__slider-item" href="#">
+                <img class="activities__slider-img" src="./images/slider-3.png" alt="">
+                <div class="activities__slider-action">
+                  <img class="activities__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="activities__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="activities__slider-content">
+                  <div class="activities__slider-subtitle subtitle">
+                    Програма «Впевнений крок» вже працює в Ірпені
+                  </div>
+                  <p class="activities__slider-text">
+                    Фахівці програми Раннього втручання завершили навчання за курсом «Тренінг навичок піклування
+                  </p>
+                </div>
+              </a>
+              <a class="activities__slider-item" href="#">
+                <img class="activities__slider-img" src="./images/slider-4.png" alt="">
+                <div class="activities__slider-action">
+                  <img class="activities__slider-action-decor" src="./images/slider-btn-decor.svg" alt=""
+                    aria-hidden="true">
+                  <span class="activities__slider-button">
+                    <img src="./images/button-arrow.svg" alt="">
+                  </span>
+                </div>
+                <div class="activities__slider-content">
+                  <div class="activities__slider-subtitle subtitle">
+                    Обід без Бід
+                  </div>
+                  <p class="activities__slider-text">
+                    Проєкт, де Ба та Ді щодня отримують смачну та корисну гарячу їжу в жовтих дерев’яних будиночках
+                    «Обі...
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <button type="button" class="activities__slider-arrow activities__slider-arrow--prev"
+            aria-label="Попередній слайд">
+            <img class="activities__slider-arrow-circle" src="./images/projects-slider-arrow-circle-left.svg" alt=""
+              aria-hidden="true">
+            <img class="activities__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
+          </button>
+          <button type="button" class="activities__slider-arrow activities__slider-arrow--next"
+            aria-label="Наступний слайд">
+            <img class="activities__slider-arrow-circle" src="./images/projects-slider-arrow-circle-right.svg" alt=""
+              aria-hidden="true">
+            <img class="activities__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
+          </button>
+        </div>
+        <div class="activities__slider-dots" role="tablist" aria-label="Слайди міжнародної діяльності">
+          <button type="button" class="activities__slider-dot is-active" role="tab" aria-selected="true"
+            aria-label="Слайд 1" data-slide-to="0"></button>
+          <button type="button" class="activities__slider-dot" role="tab" aria-selected="false" aria-label="Слайд 2"
+            data-slide-to="1"></button>
+        </div>
+      </div>
+    </section>
 
 
 
