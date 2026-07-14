@@ -520,6 +520,190 @@
 	})
 })()
 ;(function () {
+	const slider = document.querySelector('[data-news-slider]')
+	if (!slider) return
+
+	const track = slider.querySelector('.news__slider-track')
+	const dots = slider.querySelectorAll('.news__slider-dot')
+	const prevBtn = slider.querySelector('.news__slider-arrow--prev')
+	const nextBtn = slider.querySelector('.news__slider-arrow--next')
+
+	if (!track) return
+
+	const slidesPerView = 4
+	let items = [...track.querySelectorAll('.news__slider-item')]
+	const originalCount = items.length
+
+	if (!originalCount) return
+
+	const totalPages = Math.ceil(originalCount / slidesPerView)
+
+	const prependFragment = document.createDocumentFragment()
+	for (let i = originalCount - slidesPerView; i < originalCount; i++) {
+		prependFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.insertBefore(prependFragment, track.firstChild)
+
+	const appendFragment = document.createDocumentFragment()
+	for (let i = 0; i < slidesPerView; i++) {
+		appendFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.appendChild(appendFragment)
+
+	items = [...track.querySelectorAll('.news__slider-item')]
+
+	let position = slidesPerView
+
+	const getItemStep = () => {
+		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
+		return items[0].offsetWidth + gap
+	}
+
+	const getOffset = index => index * getItemStep()
+
+	const getLogicalPage = index => {
+		if (index >= slidesPerView + originalCount) return 0
+		if (index < slidesPerView) return totalPages - 1
+		return (index - slidesPerView) / slidesPerView
+	}
+
+	const updateDots = page => {
+		dots.forEach((dot, i) => {
+			const isActive = i === page
+			dot.classList.toggle('is-active', isActive)
+			dot.setAttribute('aria-selected', isActive ? 'true' : 'false')
+		})
+	}
+
+	const setPosition = (index, animate = true) => {
+		position = index
+		track.style.transition = animate ? 'transform 0.5s ease' : 'none'
+		track.style.transform = `translateX(-${getOffset(index)}px)`
+		updateDots(getLogicalPage(index))
+	}
+
+	track.addEventListener('transitionend', event => {
+		if (event.propertyName !== 'transform') return
+
+		if (position >= slidesPerView + originalCount) {
+			setPosition(slidesPerView, false)
+		} else if (position < slidesPerView) {
+			setPosition(slidesPerView + (totalPages - 1) * slidesPerView, false)
+		}
+	})
+
+	const goNext = () => setPosition(position + slidesPerView, true)
+	const goPrev = () => setPosition(position - slidesPerView, true)
+
+	const goToPage = page => {
+		setPosition(slidesPerView + page * slidesPerView, true)
+	}
+
+	prevBtn?.addEventListener('click', goPrev)
+	nextBtn?.addEventListener('click', goNext)
+
+	dots.forEach(dot => {
+		dot.addEventListener('click', () => {
+			const index = Number(dot.dataset.slideTo)
+			if (!Number.isNaN(index)) goToPage(index)
+		})
+	})
+
+	setPosition(slidesPerView, false)
+
+	window.addEventListener('resize', () => {
+		setPosition(position, false)
+	})
+})()
+;(function () {
+	const slider = document.querySelector('[data-useful-slider]')
+	if (!slider) return
+
+	const track = slider.querySelector('.useful__slider-track')
+	const dots = slider.querySelectorAll('.useful__slider-dot')
+
+	if (!track) return
+
+	const slidesPerView = 1
+	let items = [...track.querySelectorAll('.useful__items')]
+	const originalCount = items.length
+
+	if (!originalCount) return
+
+	const totalPages = Math.ceil(originalCount / slidesPerView)
+
+	const prependFragment = document.createDocumentFragment()
+	for (let i = originalCount - slidesPerView; i < originalCount; i++) {
+		prependFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.insertBefore(prependFragment, track.firstChild)
+
+	const appendFragment = document.createDocumentFragment()
+	for (let i = 0; i < slidesPerView; i++) {
+		appendFragment.appendChild(items[i].cloneNode(true))
+	}
+	track.appendChild(appendFragment)
+
+	items = [...track.querySelectorAll('.useful__items')]
+
+	let position = slidesPerView
+
+	const getItemStep = () => {
+		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
+		return items[0].offsetWidth + gap
+	}
+
+	const getOffset = index => index * getItemStep()
+
+	const getLogicalPage = index => {
+		if (index >= slidesPerView + originalCount) return 0
+		if (index < slidesPerView) return totalPages - 1
+		return (index - slidesPerView) / slidesPerView
+	}
+
+	const updateDots = page => {
+		dots.forEach((dot, i) => {
+			const isActive = i === page
+			dot.classList.toggle('is-active', isActive)
+			dot.setAttribute('aria-selected', isActive ? 'true' : 'false')
+		})
+	}
+
+	const setPosition = (index, animate = true) => {
+		position = index
+		track.style.transition = animate ? 'transform 0.5s ease' : 'none'
+		track.style.transform = `translateX(-${getOffset(index)}px)`
+		updateDots(getLogicalPage(index))
+	}
+
+	track.addEventListener('transitionend', event => {
+		if (event.propertyName !== 'transform') return
+
+		if (position >= slidesPerView + originalCount) {
+			setPosition(slidesPerView, false)
+		} else if (position < slidesPerView) {
+			setPosition(slidesPerView + (totalPages - 1) * slidesPerView, false)
+		}
+	})
+
+	const goToPage = page => {
+		setPosition(slidesPerView + page * slidesPerView, true)
+	}
+
+	dots.forEach(dot => {
+		dot.addEventListener('click', () => {
+			const index = Number(dot.dataset.slideTo)
+			if (!Number.isNaN(index)) goToPage(index)
+		})
+	})
+
+	setPosition(slidesPerView, false)
+
+	window.addEventListener('resize', () => {
+		setPosition(position, false)
+	})
+})()
+;(function () {
 	const downloadButtons = document.querySelectorAll('.reports__download[data-download]')
 
 	downloadButtons.forEach(button => {
