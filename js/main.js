@@ -744,3 +744,53 @@
 		})
 	})
 })()
+;(function () {
+	const marquee = document.querySelector('.partners__marquee')
+	const track = document.querySelector('.partners__track')
+	const baseGroup = track?.querySelector('.partners__group')
+
+	if (!marquee || !track || !baseGroup) return
+
+	const speed = 50
+
+	const buildMarquee = () => {
+		track.replaceChildren(baseGroup)
+
+		while (track.scrollWidth < marquee.offsetWidth * 2) {
+			const clone = baseGroup.cloneNode(true)
+			clone.setAttribute('aria-hidden', 'true')
+			track.appendChild(clone)
+		}
+
+		const segmentHTML = track.innerHTML
+		track.insertAdjacentHTML('beforeend', segmentHTML)
+
+		track.querySelectorAll('.partners__group:not(:first-child)').forEach(group => {
+			group.setAttribute('aria-hidden', 'true')
+		})
+
+		const duration = track.scrollWidth / 2 / speed
+		track.style.setProperty('--partners-duration', `${duration}s`)
+	}
+
+	const initMarquee = () => {
+		buildMarquee()
+
+		const images = baseGroup.querySelectorAll('img')
+		images.forEach(img => {
+			if (!img.complete) {
+				img.addEventListener('load', buildMarquee, { once: true })
+			}
+		})
+	}
+
+	initMarquee()
+
+	window.addEventListener('load', buildMarquee)
+
+	let resizeTimer
+	window.addEventListener('resize', () => {
+		clearTimeout(resizeTimer)
+		resizeTimer = setTimeout(buildMarquee, 150)
+	})
+})()
