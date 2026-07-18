@@ -22,17 +22,17 @@
         <div class="header__top">
           <div class="header__contact">
             <a class="header__mail" href="mailto:zhinky_rodu@gmail.com">
-              <img src="./images/mail.svg" alt="">
+              <img class="header__contact-icon" src="./images/mail.svg" alt="">
               <span class="header__contact-email">zhinky_rodu@gmail.com</span>
             </a>
             <img class="header__circle" src="./images/elipse.svg" alt="">
             <a class="header__phone" href="tel:+380996694934">
-              <img src="./images/phone.svg" alt="">
-              <span class="header__contact-phone">+380996694934</span>
+              <img class="header__contact-icon" src="./images/phone.svg" alt="">
+              <span class="header__contact-phone">+38 099 669 49 34</span>
             </a>
           </div>
-          <div class="header__right">
-            <div class="header__socials">
+          <div class="header__right" data-header-right>
+            <div class="header__socials" data-header-socials>
               <a class="header__social-link" href="#">
                 <img class="header__social-img" src="./images/facebook.svg" alt="">
               </a>
@@ -46,7 +46,7 @@
                 <img class="header__social-img" src="./images/telegram.svg" alt="">
               </a>
             </div>
-            <div class="header__language" data-language-dropdown>
+            <div class="header__language" data-language-dropdown data-header-language>
               <button type="button" class="header__language-trigger" aria-expanded="false" aria-haspopup="listbox"
                 aria-label="Мова">
                 <img class="header__language-icon" src="./images/globe.svg" alt="" aria-hidden="true">
@@ -66,44 +66,74 @@
           </div>
         </div>
         <div class="header__bottom" data-header-bottom>
+          <button type="button" class="header__burger" data-menu-open aria-expanded="false" aria-controls="header-menu"
+            aria-label="Відкрити меню">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"
+              aria-hidden="true">
+              <path d="M8 15H32M12 20H28M15 25H25" stroke="#003C77" stroke-width="3" stroke-linecap="round" />
+            </svg>
+          </button>
           <a class="header__logo" href="#">
-            <img src="./images/header-logo.svg" alt="">
+            <img src="./images/header-logo.svg" alt="Жінки Роду">
           </a>
-          <div class="header__center">
-            <nav class="header__nav">
-              <a class="header__nav-link active" href="#">Про фонд</a>
-              <div class="header__nav-dropdown" data-projects-dropdown>
-                <button type="button" class="header__nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"
-                  aria-controls="projects-dropdown-menu">
-                  <span>Проєкти</span>
-                </button>
-                <img class="header__nav-dropdown-arrow" src="./images/dropdown-arrow.svg" alt="" aria-hidden="true">
-                <ul class="header__nav-dropdown-menu" id="projects-dropdown-menu" aria-hidden="true">
-                  <li><a class="header__nav-dropdown-link" href="#">Світло поколінь</a></li>
-                  <li><a class="header__nav-dropdown-link" href="#">Материнське дерево</a></li>
-                  <li><a class="header__nav-dropdown-link" href="#">Коріння життя</a></li>
-                  <li><a class="header__nav-dropdown-link" href="#">Від матері до доньки</a></li>
-                </ul>
-              </div>
-              <a class="header__nav-link" href="#">Партнери</a>
-              <a class="header__nav-link" href="#">Керівництво</a>
-              <a class="header__nav-link" href="#">Новини</a>
-            </nav>
-            <div class="header__search" data-header-search>
-              <form class="header__search-form" role="search" action="#" method="get">
-                <label class="header__search-label" for="header-search-input">Пошук</label>
-                <input type="search" class="header__search-input" id="header-search-input" name="q"
-                  placeholder="Пошук..." autocomplete="off">
-                <button type="button" class="header__search-toggle" aria-expanded="false"
-                  aria-controls="header-search-input" aria-label="Пошук">
-                  <img class="header__search-img" src="./images/search.svg" alt="">
-                </button>
-              </form>
+          <a class="header__logo-mobile" href="#">
+            <img class="header__logo-mobile-1" src="./images/logo-mobile-1.svg" alt="Жінки Роду">
+            <img class="header__logo-mobile-2" src="./images/logo-mobile-2.svg" alt="">
+          </a>
+          <div class="header__menu" id="header-menu" data-header-menu aria-hidden="true">
+            <div class="header__menu-bar">
+              <button type="button" class="header__menu-close" data-menu-close aria-label="Закрити меню">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true">
+                  <path d="M24 12L16 20L24 28" stroke="#003C77" stroke-width="3" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="header__menu-language" data-menu-language-slot></div>
+              <div class="header__menu-search" data-menu-search-slot></div>
             </div>
+            <div class="header__center" data-header-center>
+              <nav class="header__nav">
+                <a class="header__nav-link active" href="#">Про фонд</a>
+                <div class="header__nav-dropdown" data-projects-dropdown>
+                  <button type="button" class="header__nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"
+                    aria-controls="projects-dropdown-menu">
+                    <span>Проєкти</span>
+                  </button>
+                  <img class="header__nav-dropdown-arrow" src="./images/dropdown-arrow.svg" alt="" aria-hidden="true">
+                  <ul class="header__nav-dropdown-menu" id="projects-dropdown-menu" aria-hidden="true">
+                    <li><a class="header__nav-dropdown-link" href="#">Світло поколінь</a></li>
+                    <li><a class="header__nav-dropdown-link" href="#">Материнське дерево</a></li>
+                    <li><a class="header__nav-dropdown-link" href="#">Коріння життя</a></li>
+                    <li><a class="header__nav-dropdown-link" href="#">Від матері до доньки</a></li>
+                  </ul>
+                </div>
+                <a class="header__nav-link" href="#">Партнери</a>
+                <a class="header__nav-link" href="#">Керівництво</a>
+                <a class="header__nav-link" href="#">Новини</a>
+              </nav>
+              <svg class="header__menu-divider" width="92" height="2" viewBox="0 0 92 2" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M1 1H90.5" stroke="black" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <div class="header__search" data-header-search>
+                <form class="header__search-form" role="search" action="#" method="get">
+                  <label class="header__search-label" for="header-search-input">Пошук</label>
+                  <input type="search" class="header__search-input" id="header-search-input" name="q"
+                    placeholder="Пошук..." autocomplete="off">
+                  <button type="button" class="header__search-toggle" aria-expanded="false"
+                    aria-controls="header-search-input" aria-label="Пошук">
+                    <img class="header__search-img" src="./images/search.svg" alt="">
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="header__menu-socials" data-menu-socials-slot></div>
           </div>
           <a class="header__help button" href="#">
-            <img src="./images/heart-handshake.svg" alt="">
-            <span>Допомогти</span>
+            <img class="header__help-icon" src="./images/heart-handshake.svg" alt="">
+            <img class="header__help-icon-mobile" src="./images/mobile-heartsvg.svg" alt="">
+            <span class="header__help-text">Допомогти</span>
           </a>
         </div>
         <div class="header__inner">
@@ -118,8 +148,7 @@
                 </h2>
                 <p class="header__text header__text-line text">
                   Це благодійна ініціатива, що виникла з глибокої поваги до української жінки, її незламного духу та
-                  історичної ролі
-                  берегині.
+                  історичної ролі берегині.
                 </p>
                 <p class="header__text text">
                   Ми об’єднуємо покоління, щоб простягнути руку допомоги тим, хто тримає на своїх плечах майбутнє нашої
@@ -130,38 +159,35 @@
             <div class="header__slide" data-bg="./images/header-bg-2.png">
               <div class="header__content">
                 <h5 class="header__subtitle subtitle">
-                  Благодійний фонд
+                  Наша спільна місія
                 </h5>
                 <h2 class="header__title title">
-                  ЖІНКИ РОДУ
+                  СИЛА РОДУ
                 </h2>
                 <p class="header__text header__text-line text">
-                  Це благодійна ініціатива, що виникла з глибокої поваги до української жінки, її незламного духу та
-                  історичної ролі
-                  берегині.
+                  Ми створюємо простір підтримки для жінок і родин, які щодня дбають про життя, гідність і майбутнє
+                  України.
                 </p>
                 <p class="header__text text">
-                  Ми об’єднуємо покоління, щоб простягнути руку допомоги тим, хто тримає на своїх плечах майбутнє нашої
-                  країни.
+                  Через освітні, культурні та гуманітарні ініціативи допомагаємо зберігати традиції й передавати їх
+                  далі.
                 </p>
               </div>
             </div>
             <div class="header__slide" data-bg="./images/header-bg-3.png">
               <div class="header__content">
                 <h5 class="header__subtitle subtitle">
-                  Благодійний фонд
+                  Разом ми сильніші
                 </h5>
                 <h2 class="header__title title">
-                  ЖІНКИ РОДУ
+                  ПОРУЧ
                 </h2>
                 <p class="header__text header__text-line text">
-                  Це благодійна ініціатива, що виникла з глибокої поваги до української жінки, її незламного духу та
-                  історичної ролі
-                  берегині.
+                  Кожна історія підтримки — це крок до стійкості громади. Ми працюємо там, де допомога потрібна сьогодні
+                  найбільше.
                 </p>
                 <p class="header__text text">
-                  Ми об’єднуємо покоління, щоб простягнути руку допомоги тим, хто тримає на своїх плечах майбутнє нашої
-                  країни.
+                  Приєднуйтесь до фонду: разом ми можемо більше зробити для жінок, дітей і родин по всій нашій країні.
                 </p>
               </div>
             </div>
@@ -171,6 +197,14 @@
               <img src="./images/button-arrow.svg" alt="">
               <span>Дізнатись більше</span>
             </a>
+            <div class="header__slider-dots" role="tablist" aria-label="Слайди">
+              <button type="button" class="header__slider-dot is-active" role="tab" aria-selected="true"
+                aria-label="Слайд 1" data-slide-to="0"></button>
+              <button type="button" class="header__slider-dot" role="tab" aria-selected="false" aria-label="Слайд 2"
+                data-slide-to="1"></button>
+              <button type="button" class="header__slider-dot" role="tab" aria-selected="false" aria-label="Слайд 3"
+                data-slide-to="2"></button>
+            </div>
           </div>
         </div>
       </div>
@@ -182,76 +216,94 @@
         <img class="header__slider-arrow-circle" src="./images/slider-arrow-circle-right.svg" alt="" aria-hidden="true">
         <img class="header__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
       </button>
-      <div class="header__bg" aria-hidden="true">
-        <div class="header__bg-slide is-active">
-          <div class="header__media"
-            style="--slide-aspect: 1163 / 658; background-image: url('./images/header-bg.png')"></div>
-        </div>
-        <div class="header__bg-slide">
-          <div class="header__media"
-            style="--slide-aspect: 1163 / 658; background-image: url('./images/header-bg-2.png')"></div>
-        </div>
-        <div class="header__bg-slide">
-          <div class="header__media"
-            style="--slide-aspect: 1163 / 658; background-image: url('./images/header-bg-3.png')"></div>
-        </div>
-      </div>
-      <div class="header__person" aria-hidden="true">
-        <div class="header__person-slide is-active">
-          <div class="header__media" style="--slide-aspect: 1163 / 658">
-            <svg class="header__person-decor-bg" width="935" height="380" viewBox="0 0 936 398"
-              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M943.5 374.743C826.5 403.574 795.172 360.685 795.172 294.135C795.172 256.66 839.072 256.191 856.549 283.917C871.546 307.709 872.851 367.022 840.068 378.717C769.2 403.998 693.542 377.924 626.385 354.591C528.337 320.526 428.545 247.339 373.489 157.612C352.101 122.756 275.202 10.1437 367.806 7.57413C514.651 3.49947 553.399 168.499 495.959 270.01C471.89 312.545 414.138 339.749 367.806 346.36C316.626 353.663 237.747 315.169 227.719 260.076C219.472 214.767 269.264 232.574 280.855 262.346C297.852 306.002 258.73 338.084 218.341 338.981C152.244 340.448 99.5942 303.406 55.806 257.237C42.885 243.614 17.111 207.2 12.8987 188.266C9.06784 171.047 9.74877 181.77 12.3305 193.375C14.7492 204.247 7.5 215.236 7.5 226.583C7.5 230.574 12.6146 205.835 12.6146 198.484C12.6146 163.525 59.4916 192.011 79.1066 195.93"
-                stroke="#FED33F" stroke-width="15" stroke-linecap="round" />
-            </svg>
-            <svg class="header__person-decor" width="935" height="380" viewBox="0 0 936 398"
-              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M944 375.169C827 404 795.672 361.111 795.672 294.561C795.672 257.086 839.572 256.617 857.049 284.343C872.046 308.135 873.351 367.448 840.568 379.143C795.712 395.145 748.937 390.572 703.613 379.143C677.33 372.515 651.535 363.582 626.885 355.017C528.837 320.952 429.045 247.765 373.989 158.038C352.601 123.182 275.702 10.5696 368.306 8.00006M228.219 260.502C219.972 215.193 269.764 233 281.355 262.772C298.352 306.427 259.23 338.51 218.841 339.407C152.744 340.874 100.094 303.832 56.306 257.663C43.385 244.04 17.611 207.626 13.3987 188.692C9.56784 171.473 10.2488 182.196 12.8305 193.801C15.2492 204.673 8 215.662 8 227.009C8 231 13.1146 206.261 13.1146 198.91C13.1146 163.951 59.9916 192.437 79.6066 196.355"
-                stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
-            </svg>
-            <img class="header__person-img" src="./images/slide-person.png" alt="" aria-hidden="true">
+      <div class="header__visual">
+        <div class="header__bg" aria-hidden="true">
+          <div class="header__bg-slide is-active">
+            <div class="header__media"
+              style="--slide-aspect: 1163 / 658; background-image: url('./images/header-bg.png')">
+              <img class="header__media-mobile" src="./images/header-bg-mobile.png" alt="" aria-hidden="true">
+            </div>
           </div>
-        </div>
-        <div class="header__person-slide">
-          <div class="header__media" style="--slide-aspect: 1163 / 658">
-            <svg class="header__person-decor-bg" width="935" height="380" viewBox="0 0 936 398"
-              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M943.5 374.743C826.5 403.574 795.172 360.685 795.172 294.135C795.172 256.66 839.072 256.191 856.549 283.917C871.546 307.709 872.851 367.022 840.068 378.717C769.2 403.998 693.542 377.924 626.385 354.591C528.337 320.526 428.545 247.339 373.489 157.612C352.101 122.756 275.202 10.1437 367.806 7.57413C514.651 3.49947 553.399 168.499 495.959 270.01C471.89 312.545 414.138 339.749 367.806 346.36C316.626 353.663 237.747 315.169 227.719 260.076C219.472 214.767 269.264 232.574 280.855 262.346C297.852 306.002 258.73 338.084 218.341 338.981C152.244 340.448 99.5942 303.406 55.806 257.237C42.885 243.614 17.111 207.2 12.8987 188.266C9.06784 171.047 9.74877 181.77 12.3305 193.375C14.7492 204.247 7.5 215.236 7.5 226.583C7.5 230.574 12.6146 205.835 12.6146 198.484C12.6146 163.525 59.4916 192.011 79.1066 195.93"
-                stroke="#FED33F" stroke-width="15" stroke-linecap="round" />
-            </svg>
-            <svg class="header__person-decor" width="935" height="380" viewBox="0 0 936 398"
-              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M944 375.169C827 404 795.672 361.111 795.672 294.561C795.672 257.086 839.572 256.617 857.049 284.343C872.046 308.135 873.351 367.448 840.568 379.143C795.712 395.145 748.937 390.572 703.613 379.143C677.33 372.515 651.535 363.582 626.885 355.017C528.837 320.952 429.045 247.765 373.989 158.038C352.601 123.182 275.702 10.5696 368.306 8.00006M228.219 260.502C219.972 215.193 269.764 233 281.355 262.772C298.352 306.427 259.23 338.51 218.841 339.407C152.744 340.874 100.094 303.832 56.306 257.663C43.385 244.04 17.611 207.626 13.3987 188.692C9.56784 171.473 10.2488 182.196 12.8305 193.801C15.2492 204.673 8 215.662 8 227.009C8 231 13.1146 206.261 13.1146 198.91C13.1146 163.951 59.9916 192.437 79.6066 196.355"
-                stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
-            </svg>
-            <img class="header__person-img" src="./images/slide-person-2.png" alt="" aria-hidden="true">
+          <div class="header__bg-slide">
+            <div class="header__media"
+              style="--slide-aspect: 1163 / 658; background-image: url('./images/header-bg-2.png')">
+              <img class="header__media-mobile" src="./images/header-bg-mobile.png" alt="" aria-hidden="true">
+            </div>
           </div>
+          <div class="header__bg-slide">
+            <div class="header__media"
+              style="--slide-aspect: 1163 / 658; background-image: url('./images/header-bg-3.png')">
+              <img class="header__media-mobile" src="./images/header-bg-mobile.png" alt="" aria-hidden="true">
+            </div>
+          </div>
+          <img class="header__photo-decor" src="./images/header-mobile.svg" alt="" aria-hidden="true">
         </div>
-        <div class="header__person-slide">
-          <div class="header__media" style="--slide-aspect: 1163 / 658">
-            <svg class="header__person-decor-bg" width="935" height="380" viewBox="0 0 936 398"
-              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M943.5 374.743C826.5 403.574 795.172 360.685 795.172 294.135C795.172 256.66 839.072 256.191 856.549 283.917C871.546 307.709 872.851 367.022 840.068 378.717C769.2 403.998 693.542 377.924 626.385 354.591C528.337 320.526 428.545 247.339 373.489 157.612C352.101 122.756 275.202 10.1437 367.806 7.57413C514.651 3.49947 553.399 168.499 495.959 270.01C471.89 312.545 414.138 339.749 367.806 346.36C316.626 353.663 237.747 315.169 227.719 260.076C219.472 214.767 269.264 232.574 280.855 262.346C297.852 306.002 258.73 338.084 218.341 338.981C152.244 340.448 99.5942 303.406 55.806 257.237C42.885 243.614 17.111 207.2 12.8987 188.266C9.06784 171.047 9.74877 181.77 12.3305 193.375C14.7492 204.247 7.5 215.236 7.5 226.583C7.5 230.574 12.6146 205.835 12.6146 198.484C12.6146 163.525 59.4916 192.011 79.1066 195.93"
-                stroke="#FED33F" stroke-width="15" stroke-linecap="round" />
-            </svg>
-            <svg class="header__person-decor" width="935" height="380" viewBox="0 0 936 398"
-              preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M944 375.169C827 404 795.672 361.111 795.672 294.561C795.672 257.086 839.572 256.617 857.049 284.343C872.046 308.135 873.351 367.448 840.568 379.143C795.712 395.145 748.937 390.572 703.613 379.143C677.33 372.515 651.535 363.582 626.885 355.017C528.837 320.952 429.045 247.765 373.989 158.038C352.601 123.182 275.702 10.5696 368.306 8.00006M228.219 260.502C219.972 215.193 269.764 233 281.355 262.772C298.352 306.427 259.23 338.51 218.841 339.407C152.744 340.874 100.094 303.832 56.306 257.663C43.385 244.04 17.611 207.626 13.3987 188.692C9.56784 171.473 10.2488 182.196 12.8305 193.801C15.2492 204.673 8 215.662 8 227.009C8 231 13.1146 206.261 13.1146 198.91C13.1146 163.951 59.9916 192.437 79.6066 196.355"
-                stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
-            </svg>
-            <img class="header__person-img" src="./images/slide-person-3.png" alt="" aria-hidden="true">
+        <div class="header__person" aria-hidden="true">
+          <div class="header__person-slide is-active">
+            <div class="header__media" style="--slide-aspect: 1163 / 658">
+              <svg class="header__person-decor-bg" width="935" height="380" viewBox="0 0 936 398"
+                preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M943.5 374.743C826.5 403.574 795.172 360.685 795.172 294.135C795.172 256.66 839.072 256.191 856.549 283.917C871.546 307.709 872.851 367.022 840.068 378.717C769.2 403.998 693.542 377.924 626.385 354.591C528.337 320.526 428.545 247.339 373.489 157.612C352.101 122.756 275.202 10.1437 367.806 7.57413C514.651 3.49947 553.399 168.499 495.959 270.01C471.89 312.545 414.138 339.749 367.806 346.36C316.626 353.663 237.747 315.169 227.719 260.076C219.472 214.767 269.264 232.574 280.855 262.346C297.852 306.002 258.73 338.084 218.341 338.981C152.244 340.448 99.5942 303.406 55.806 257.237C42.885 243.614 17.111 207.2 12.8987 188.266C9.06784 171.047 9.74877 181.77 12.3305 193.375C14.7492 204.247 7.5 215.236 7.5 226.583C7.5 230.574 12.6146 205.835 12.6146 198.484C12.6146 163.525 59.4916 192.011 79.1066 195.93"
+                  stroke="#FED33F" stroke-width="15" stroke-linecap="round" />
+              </svg>
+              <svg class="header__person-decor" width="935" height="380" viewBox="0 0 936 398"
+                preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M944 375.169C827 404 795.672 361.111 795.672 294.561C795.672 257.086 839.572 256.617 857.049 284.343C872.046 308.135 873.351 367.448 840.568 379.143C795.712 395.145 748.937 390.572 703.613 379.143C677.33 372.515 651.535 363.582 626.885 355.017C528.837 320.952 429.045 247.765 373.989 158.038C352.601 123.182 275.702 10.5696 368.306 8.00006M228.219 260.502C219.972 215.193 269.764 233 281.355 262.772C298.352 306.427 259.23 338.51 218.841 339.407C152.744 340.874 100.094 303.832 56.306 257.663C43.385 244.04 17.611 207.626 13.3987 188.692C9.56784 171.473 10.2488 182.196 12.8305 193.801C15.2492 204.673 8 215.662 8 227.009C8 231 13.1146 206.261 13.1146 198.91C13.1146 163.951 59.9916 192.437 79.6066 196.355"
+                  stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
+              </svg>
+              <img class="header__person-img header__person-img--desktop" src="./images/slide-person.png" alt=""
+                aria-hidden="true">
+              <img class="header__person-img header__person-img--mobile" src="./images/header-woman-mobile.png" alt=""
+                aria-hidden="true">
+            </div>
+          </div>
+          <div class="header__person-slide">
+            <div class="header__media" style="--slide-aspect: 1163 / 658">
+              <svg class="header__person-decor-bg" width="935" height="380" viewBox="0 0 936 398"
+                preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M943.5 374.743C826.5 403.574 795.172 360.685 795.172 294.135C795.172 256.66 839.072 256.191 856.549 283.917C871.546 307.709 872.851 367.022 840.068 378.717C769.2 403.998 693.542 377.924 626.385 354.591C528.337 320.526 428.545 247.339 373.489 157.612C352.101 122.756 275.202 10.1437 367.806 7.57413C514.651 3.49947 553.399 168.499 495.959 270.01C471.89 312.545 414.138 339.749 367.806 346.36C316.626 353.663 237.747 315.169 227.719 260.076C219.472 214.767 269.264 232.574 280.855 262.346C297.852 306.002 258.73 338.084 218.341 338.981C152.244 340.448 99.5942 303.406 55.806 257.237C42.885 243.614 17.111 207.2 12.8987 188.266C9.06784 171.047 9.74877 181.77 12.3305 193.375C14.7492 204.247 7.5 215.236 7.5 226.583C7.5 230.574 12.6146 205.835 12.6146 198.484C12.6146 163.525 59.4916 192.011 79.1066 195.93"
+                  stroke="#FED33F" stroke-width="15" stroke-linecap="round" />
+              </svg>
+              <svg class="header__person-decor" width="935" height="380" viewBox="0 0 936 398"
+                preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M944 375.169C827 404 795.672 361.111 795.672 294.561C795.672 257.086 839.572 256.617 857.049 284.343C872.046 308.135 873.351 367.448 840.568 379.143C795.712 395.145 748.937 390.572 703.613 379.143C677.33 372.515 651.535 363.582 626.885 355.017C528.837 320.952 429.045 247.765 373.989 158.038C352.601 123.182 275.702 10.5696 368.306 8.00006M228.219 260.502C219.972 215.193 269.764 233 281.355 262.772C298.352 306.427 259.23 338.51 218.841 339.407C152.744 340.874 100.094 303.832 56.306 257.663C43.385 244.04 17.611 207.626 13.3987 188.692C9.56784 171.473 10.2488 182.196 12.8305 193.801C15.2492 204.673 8 215.662 8 227.009C8 231 13.1146 206.261 13.1146 198.91C13.1146 163.951 59.9916 192.437 79.6066 196.355"
+                  stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
+              </svg>
+              <img class="header__person-img header__person-img--desktop" src="./images/slide-person-2.png" alt=""
+                aria-hidden="true">
+              <img class="header__person-img header__person-img--mobile" src="./images/header-woman-mobile.png" alt=""
+                aria-hidden="true">
+            </div>
+          </div>
+          <div class="header__person-slide">
+            <div class="header__media" style="--slide-aspect: 1163 / 658">
+              <svg class="header__person-decor-bg" width="935" height="380" viewBox="0 0 936 398"
+                preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M943.5 374.743C826.5 403.574 795.172 360.685 795.172 294.135C795.172 256.66 839.072 256.191 856.549 283.917C871.546 307.709 872.851 367.022 840.068 378.717C769.2 403.998 693.542 377.924 626.385 354.591C528.337 320.526 428.545 247.339 373.489 157.612C352.101 122.756 275.202 10.1437 367.806 7.57413C514.651 3.49947 553.399 168.499 495.959 270.01C471.89 312.545 414.138 339.749 367.806 346.36C316.626 353.663 237.747 315.169 227.719 260.076C219.472 214.767 269.264 232.574 280.855 262.346C297.852 306.002 258.73 338.084 218.341 338.981C152.244 340.448 99.5942 303.406 55.806 257.237C42.885 243.614 17.111 207.2 12.8987 188.266C9.06784 171.047 9.74877 181.77 12.3305 193.375C14.7492 204.247 7.5 215.236 7.5 226.583C7.5 230.574 12.6146 205.835 12.6146 198.484C12.6146 163.525 59.4916 192.011 79.1066 195.93"
+                  stroke="#FED33F" stroke-width="15" stroke-linecap="round" />
+              </svg>
+              <svg class="header__person-decor" width="935" height="380" viewBox="0 0 936 398"
+                preserveAspectRatio="xMaxYMid meet" fill="none" overflow="visible" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M944 375.169C827 404 795.672 361.111 795.672 294.561C795.672 257.086 839.572 256.617 857.049 284.343C872.046 308.135 873.351 367.448 840.568 379.143C795.712 395.145 748.937 390.572 703.613 379.143C677.33 372.515 651.535 363.582 626.885 355.017C528.837 320.952 429.045 247.765 373.989 158.038C352.601 123.182 275.702 10.5696 368.306 8.00006M228.219 260.502C219.972 215.193 269.764 233 281.355 262.772C298.352 306.427 259.23 338.51 218.841 339.407C152.744 340.874 100.094 303.832 56.306 257.663C43.385 244.04 17.611 207.626 13.3987 188.692C9.56784 171.473 10.2488 182.196 12.8305 193.801C15.2492 204.673 8 215.662 8 227.009C8 231 13.1146 206.261 13.1146 198.91C13.1146 163.951 59.9916 192.437 79.6066 196.355"
+                  stroke="#FED33F" stroke-width="16" stroke-linecap="round" />
+              </svg>
+              <img class="header__person-img header__person-img--desktop" src="./images/slide-person-3.png" alt=""
+                aria-hidden="true">
+              <img class="header__person-img header__person-img--mobile" src="./images/header-woman-mobile.png" alt=""
+                aria-hidden="true">
+            </div>
           </div>
         </div>
       </div>

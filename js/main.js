@@ -100,6 +100,7 @@
 		const input = block.querySelector('.header__search-input')
 		const toggle = block.querySelector('.header__search-toggle')
 		const bottom = block.closest('[data-header-bottom]')
+		const header = block.closest('.header')
 		const nav = bottom?.querySelector('.header__nav')
 
 		if (!input || !toggle) return
@@ -107,6 +108,7 @@
 		const open = () => {
 			block.classList.add('is-open')
 			bottom?.classList.add('is-search-open')
+			header?.classList.add('header--menu-search-open')
 			toggle.setAttribute('aria-expanded', 'true')
 			nav?.setAttribute('aria-hidden', 'true')
 			input.focus()
@@ -115,6 +117,7 @@
 		const close = () => {
 			block.classList.remove('is-open')
 			bottom?.classList.remove('is-search-open')
+			header?.classList.remove('header--menu-search-open')
 			toggle.setAttribute('aria-expanded', 'false')
 			nav?.setAttribute('aria-hidden', 'false')
 		}
@@ -134,6 +137,86 @@
 	})
 })()
 ;(function () {
+	const header = document.querySelector('.header')
+	const menu = document.querySelector('[data-header-menu]')
+	const openBtn = document.querySelector('[data-menu-open]')
+	const closeBtn = document.querySelector('[data-menu-close]')
+	const headerRight = document.querySelector('[data-header-right]')
+	const language = document.querySelector('[data-header-language]')
+	const socials = document.querySelector('[data-header-socials]')
+	const search = document.querySelector('[data-header-search]')
+	const center = document.querySelector('[data-header-center]')
+	const languageSlot = document.querySelector('[data-menu-language-slot]')
+	const searchSlot = document.querySelector('[data-menu-search-slot]')
+	const socialsSlot = document.querySelector('[data-menu-socials-slot]')
+
+	if (!header || !menu || !openBtn || !closeBtn) return
+
+	const mq = window.matchMedia('(max-width: 1350px)')
+
+	const moveToMenu = () => {
+		if (language && languageSlot) languageSlot.appendChild(language)
+		if (search && searchSlot) searchSlot.appendChild(search)
+		if (socials && socialsSlot) socialsSlot.appendChild(socials)
+	}
+
+	const moveToDesktop = () => {
+		if (language && headerRight) headerRight.appendChild(language)
+		if (socials && headerRight) headerRight.insertBefore(socials, language || null)
+		if (search && center) center.appendChild(search)
+	}
+
+	const openMenu = () => {
+		if (!mq.matches) return
+		moveToMenu()
+		header.classList.add('is-menu-open')
+		menu.setAttribute('aria-hidden', 'false')
+		openBtn.setAttribute('aria-expanded', 'true')
+		document.body.classList.add('no-scroll')
+	}
+
+	const closeMenu = () => {
+		header.classList.remove('is-menu-open')
+		header.classList.remove('header--menu-search-open')
+		menu.setAttribute('aria-hidden', 'true')
+		openBtn.setAttribute('aria-expanded', 'false')
+		document.body.classList.remove('no-scroll')
+
+		const searchBlock = header.querySelector('[data-header-search]')
+		searchBlock?.classList.remove('is-open')
+		header.querySelector('[data-header-bottom]')?.classList.remove('is-search-open')
+
+		moveToDesktop()
+	}
+
+	openBtn.addEventListener('click', openMenu)
+	closeBtn.addEventListener('click', closeMenu)
+
+	menu.querySelectorAll('.header__nav-link').forEach(link => {
+		link.addEventListener('click', () => {
+			if (mq.matches) closeMenu()
+		})
+	})
+
+	document.addEventListener('keydown', event => {
+		if (event.key === 'Escape' && header.classList.contains('is-menu-open')) {
+			closeMenu()
+		}
+	})
+
+	const onViewportChange = () => {
+		if (!mq.matches && header.classList.contains('is-menu-open')) {
+			closeMenu()
+		} else if (!mq.matches) {
+			moveToDesktop()
+		} else if (!header.classList.contains('is-menu-open')) {
+			moveToDesktop()
+		}
+	}
+
+	mq.addEventListener('change', onViewportChange)
+})()
+;(function () {
 	const headerTop = document.querySelector('.header__top')
 	const headerBottom = document.querySelector('[data-header-bottom]')
 
@@ -143,6 +226,19 @@
 	spacer.className = 'header__bottom-spacer'
 	spacer.setAttribute('aria-hidden', 'true')
 	headerBottom.after(spacer)
+
+	const syncMobileSpacer = () => {
+		if (!window.matchMedia('(max-width: 1350px)').matches) {
+			if (!headerBottom.classList.contains('is-sticky')) {
+				spacer.style.height = '0'
+			}
+			return
+		}
+		// Keep full ( unscrolled ) height so content never jumps when logo-2 fades
+		headerBottom.classList.remove('is-scrolled')
+		spacer.style.height = `${headerBottom.offsetHeight}px`
+		headerBottom.classList.toggle('is-scrolled', window.scrollY > 4)
+	}
 
 	const setSticky = isSticky => {
 		const isCurrentlySticky = headerBottom.classList.contains('is-sticky')
@@ -157,6 +253,15 @@
 	}
 
 	const updateSticky = () => {
+		const isMobile = window.matchMedia('(max-width: 1350px)').matches
+
+		if (isMobile) {
+			setSticky(false)
+			headerBottom.classList.toggle('is-scrolled', window.scrollY > 4)
+			return
+		}
+
+		headerBottom.classList.remove('is-scrolled')
 		setSticky(headerTop.getBoundingClientRect().bottom <= 0)
 	}
 
@@ -176,11 +281,14 @@
 	)
 
 	window.addEventListener('resize', () => {
+		updateSticky()
+		syncMobileSpacer()
 		if (headerBottom.classList.contains('is-sticky')) {
 			spacer.style.height = `${headerBottom.offsetHeight}px`
 		}
 	})
 
+	syncMobileSpacer()
 	updateSticky()
 })()
 ;(function () {
@@ -197,6 +305,8 @@
 	if (!bgSlides.length) return
 
 	let current = 0
+	let autoplayTimer = null
+	const AUTOPLAY_MS = 5000
 
 	const goToSlide = index => {
 		const total = bgSlides.length
@@ -221,15 +331,50 @@
 		})
 	}
 
-	prevBtn?.addEventListener('click', () => goToSlide(current - 1))
-	nextBtn?.addEventListener('click', () => goToSlide(current + 1))
+	const stopAutoplay = () => {
+		if (autoplayTimer) {
+			clearInterval(autoplayTimer)
+			autoplayTimer = null
+		}
+	}
+
+	const startAutoplay = () => {
+		stopAutoplay()
+		autoplayTimer = setInterval(() => goToSlide(current + 1), AUTOPLAY_MS)
+	}
+
+	const restartAutoplay = () => {
+		stopAutoplay()
+		startAutoplay()
+	}
+
+	prevBtn?.addEventListener('click', () => {
+		goToSlide(current - 1)
+		restartAutoplay()
+	})
+	nextBtn?.addEventListener('click', () => {
+		goToSlide(current + 1)
+		restartAutoplay()
+	})
 
 	dots.forEach(dot => {
 		dot.addEventListener('click', () => {
 			const index = Number(dot.dataset.slideTo)
-			if (!Number.isNaN(index)) goToSlide(index)
+			if (!Number.isNaN(index)) {
+				goToSlide(index)
+				restartAutoplay()
+			}
 		})
 	})
+
+	slider.addEventListener('mouseenter', stopAutoplay)
+	slider.addEventListener('mouseleave', startAutoplay)
+	slider.addEventListener('focusin', stopAutoplay)
+	slider.addEventListener('focusout', event => {
+		if (!slider.contains(event.relatedTarget)) startAutoplay()
+	})
+
+	startAutoplay()
 })()
 ;(function () {
 	const slider = document.querySelector('[data-projects-slider]')
