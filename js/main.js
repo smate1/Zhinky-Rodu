@@ -115,6 +115,7 @@
 		}
 
 		const close = () => {
+			if (!block.classList.contains('is-open')) return
 			block.classList.remove('is-open')
 			bottom?.classList.remove('is-search-open')
 			header?.classList.remove('header--menu-search-open')
@@ -132,7 +133,9 @@
 		})
 
 		document.addEventListener('keydown', event => {
-			if (event.key === 'Escape') close()
+			if (event.key !== 'Escape' || !block.classList.contains('is-open')) return
+			event.stopPropagation()
+			close()
 		})
 	})
 })()
@@ -142,32 +145,58 @@
 	const openBtn = document.querySelector('[data-menu-open]')
 	const closeBtn = document.querySelector('[data-menu-close]')
 	const headerRight = document.querySelector('[data-header-right]')
+	const burgerSlot = document.querySelector('[data-burger-slot]')
+	const bottomEnd = document.querySelector('[data-header-bottom-end]')
 	const language = document.querySelector('[data-header-language]')
 	const socials = document.querySelector('[data-header-socials]')
 	const search = document.querySelector('[data-header-search]')
-	const center = document.querySelector('[data-header-center]')
 	const languageSlot = document.querySelector('[data-menu-language-slot]')
 	const searchSlot = document.querySelector('[data-menu-search-slot]')
 	const socialsSlot = document.querySelector('[data-menu-socials-slot]')
 
 	if (!header || !menu || !openBtn || !closeBtn) return
 
-	const mq = window.matchMedia('(max-width: 1350px)')
+	const mqMenu = window.matchMedia('(max-width: 900px)')
+	const mqMobile = window.matchMedia('(max-width: 650px)')
+
+	const placeBurger = () => {
+		if (mqMobile.matches && burgerSlot) {
+			burgerSlot.appendChild(openBtn)
+		} else if (headerRight) {
+			headerRight.appendChild(openBtn)
+		}
+	}
+
+	const placeSearch = () => {
+		if (!search) return
+		if (mqMobile.matches && header.classList.contains('is-menu-open') && searchSlot) {
+			searchSlot.appendChild(search)
+		} else if (bottomEnd) {
+			const help = bottomEnd.querySelector('.header__help')
+			bottomEnd.insertBefore(search, help || null)
+		}
+	}
 
 	const moveToMenu = () => {
+		if (!mqMobile.matches) return
 		if (language && languageSlot) languageSlot.appendChild(language)
 		if (search && searchSlot) searchSlot.appendChild(search)
 		if (socials && socialsSlot) socialsSlot.appendChild(socials)
 	}
 
 	const moveToDesktop = () => {
-		if (language && headerRight) headerRight.appendChild(language)
-		if (socials && headerRight) headerRight.insertBefore(socials, language || null)
-		if (search && center) center.appendChild(search)
+		if (language && headerRight) {
+			headerRight.insertBefore(language, openBtn.parentElement === headerRight ? openBtn : null)
+		}
+		if (socials && headerRight) {
+			headerRight.insertBefore(socials, language || (openBtn.parentElement === headerRight ? openBtn : null))
+		}
+		placeBurger()
+		placeSearch()
 	}
 
 	const openMenu = () => {
-		if (!mq.matches) return
+		if (!mqMenu.matches) return
 		moveToMenu()
 		header.classList.add('is-menu-open')
 		menu.setAttribute('aria-hidden', 'false')
@@ -184,7 +213,9 @@
 
 		const searchBlock = header.querySelector('[data-header-search]')
 		searchBlock?.classList.remove('is-open')
-		header.querySelector('[data-header-bottom]')?.classList.remove('is-search-open')
+		header
+			.querySelector('[data-header-bottom]')
+			?.classList.remove('is-search-open')
 
 		moveToDesktop()
 	}
@@ -192,29 +223,49 @@
 	openBtn.addEventListener('click', openMenu)
 	closeBtn.addEventListener('click', closeMenu)
 
-	menu.querySelectorAll('.header__nav-link').forEach(link => {
+	menu.querySelectorAll('.header__nav-link, .header__nav-dropdown-link').forEach(link => {
 		link.addEventListener('click', () => {
-			if (mq.matches) closeMenu()
+			if (mqMenu.matches) closeMenu()
 		})
 	})
 
 	document.addEventListener('keydown', event => {
-		if (event.key === 'Escape' && header.classList.contains('is-menu-open')) {
-			closeMenu()
-		}
+		if (event.key !== 'Escape' || !header.classList.contains('is-menu-open')) return
+		const searchBlock = header.querySelector('[data-header-search]')
+		if (searchBlock?.classList.contains('is-open')) return
+		closeMenu()
 	})
 
 	const onViewportChange = () => {
-		if (!mq.matches && header.classList.contains('is-menu-open')) {
+		if (!mqMenu.matches && header.classList.contains('is-menu-open')) {
 			closeMenu()
-		} else if (!mq.matches) {
-			moveToDesktop()
+			return
+		}
+
+		if (header.classList.contains('is-menu-open') && !mqMobile.matches) {
+			if (language && headerRight) {
+				headerRight.insertBefore(language, openBtn.parentElement === headerRight ? openBtn : null)
+			}
+			if (socials && headerRight) {
+				headerRight.insertBefore(
+					socials,
+					language || (openBtn.parentElement === headerRight ? openBtn : null)
+				)
+			}
+			placeSearch()
+			placeBurger()
 		} else if (!header.classList.contains('is-menu-open')) {
 			moveToDesktop()
+		} else {
+			placeBurger()
+			placeSearch()
 		}
 	}
 
-	mq.addEventListener('change', onViewportChange)
+	placeBurger()
+	placeSearch()
+	mqMenu.addEventListener('change', onViewportChange)
+	mqMobile.addEventListener('change', onViewportChange)
 })()
 ;(function () {
 	const headerTop = document.querySelector('.header__top')
@@ -228,7 +279,7 @@
 	headerBottom.after(spacer)
 
 	const syncMobileSpacer = () => {
-		if (!window.matchMedia('(max-width: 1350px)').matches) {
+		if (!window.matchMedia('(max-width: 650px)').matches) {
 			if (!headerBottom.classList.contains('is-sticky')) {
 				spacer.style.height = '0'
 			}
@@ -253,7 +304,7 @@
 	}
 
 	const updateSticky = () => {
-		const isMobile = window.matchMedia('(max-width: 1350px)').matches
+		const isMobile = window.matchMedia('(max-width: 650px)').matches
 
 		if (isMobile) {
 			setSticky(false)
@@ -290,6 +341,29 @@
 
 	syncMobileSpacer()
 	updateSticky()
+})()
+;(function () {
+	const dots = document.querySelector('.header__slider-dots')
+	const dotsSlot = document.querySelector('[data-header-dots-slot]')
+	const actions = document.querySelector('.header__actions')
+	if (!dots || !dotsSlot || !actions) return
+
+	const mqTablet = window.matchMedia('(max-width: 1350px)')
+	const mqMobile = window.matchMedia('(max-width: 650px)')
+
+	const syncDots = () => {
+		if (mqMobile.matches) {
+			actions.appendChild(dots)
+		} else if (mqTablet.matches) {
+			dotsSlot.appendChild(dots)
+		} else if (dots.parentElement !== actions) {
+			actions.appendChild(dots)
+		}
+	}
+
+	syncDots()
+	mqTablet.addEventListener('change', syncDots)
+	mqMobile.addEventListener('change', syncDots)
 })()
 ;(function () {
 	const slider = document.querySelector('[data-header-slider]')
@@ -849,7 +923,9 @@
 	})
 })()
 ;(function () {
-	const downloadButtons = document.querySelectorAll('.reports__download[data-download]')
+	const downloadButtons = document.querySelectorAll(
+		'.reports__download[data-download]',
+	)
 
 	downloadButtons.forEach(button => {
 		button.addEventListener('click', async () => {
@@ -910,9 +986,11 @@
 		const segmentHTML = track.innerHTML
 		track.insertAdjacentHTML('beforeend', segmentHTML)
 
-		track.querySelectorAll('.partners__group:not(:first-child)').forEach(group => {
-			group.setAttribute('aria-hidden', 'true')
-		})
+		track
+			.querySelectorAll('.partners__group:not(:first-child)')
+			.forEach(group => {
+				group.setAttribute('aria-hidden', 'true')
+			})
 
 		const duration = track.scrollWidth / 2 / speed
 		track.style.setProperty('--partners-duration', `${duration}s`)

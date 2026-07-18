@@ -66,13 +66,15 @@
           </div>
         </div>
         <div class="header__bottom" data-header-bottom>
-          <button type="button" class="header__burger" data-menu-open aria-expanded="false" aria-controls="header-menu"
-            aria-label="Відкрити меню">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"
-              aria-hidden="true">
-              <path d="M8 15H32M12 20H28M15 25H25" stroke="#003C77" stroke-width="3" stroke-linecap="round" />
-            </svg>
-          </button>
+          <div class="header__burger-slot" data-burger-slot>
+            <button type="button" class="header__burger" data-menu-open aria-expanded="false"
+              aria-controls="header-menu" aria-label="Відкрити меню">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"
+                aria-hidden="true">
+                <path d="M8 15H32M12 20H28M15 25H25" stroke="#003C77" stroke-width="3" stroke-linecap="round" />
+              </svg>
+            </button>
+          </div>
           <a class="header__logo" href="#">
             <img src="./images/header-logo.svg" alt="Жінки Роду">
           </a>
@@ -116,25 +118,27 @@
                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M1 1H90.5" stroke="black" stroke-width="2" stroke-linecap="round" />
               </svg>
-              <div class="header__search" data-header-search>
-                <form class="header__search-form" role="search" action="#" method="get">
-                  <label class="header__search-label" for="header-search-input">Пошук</label>
-                  <input type="search" class="header__search-input" id="header-search-input" name="q"
-                    placeholder="Пошук..." autocomplete="off">
-                  <button type="button" class="header__search-toggle" aria-expanded="false"
-                    aria-controls="header-search-input" aria-label="Пошук">
-                    <img class="header__search-img" src="./images/search.svg" alt="">
-                  </button>
-                </form>
-              </div>
             </div>
             <div class="header__menu-socials" data-menu-socials-slot></div>
           </div>
-          <a class="header__help button" href="#">
-            <img class="header__help-icon" src="./images/heart-handshake.svg" alt="">
-            <img class="header__help-icon-mobile" src="./images/mobile-heartsvg.svg" alt="">
-            <span class="header__help-text">Допомогти</span>
-          </a>
+          <div class="header__bottom-end" data-header-bottom-end>
+            <div class="header__search" data-header-search>
+              <form class="header__search-form" role="search" action="#" method="get">
+                <label class="header__search-label" for="header-search-input">Пошук</label>
+                <input type="search" class="header__search-input" id="header-search-input" name="q"
+                  placeholder="Пошук..." autocomplete="off">
+                <button type="button" class="header__search-toggle" aria-expanded="false"
+                  aria-controls="header-search-input" aria-label="Пошук">
+                  <img class="header__search-img" src="./images/search.svg" alt="">
+                </button>
+              </form>
+            </div>
+            <a class="header__help button" href="#">
+              <img class="header__help-icon" src="./images/heart-handshake.svg" alt="">
+              <img class="header__help-icon-mobile" src="./images/mobile-heartsvg.svg" alt="">
+              <span class="header__help-text">Допомогти</span>
+            </a>
+          </div>
         </div>
         <div class="header__inner">
           <div class="header__slides">
@@ -307,7 +311,9 @@
           </div>
         </div>
       </div>
-      <div class="header__corner" aria-hidden="true"></div>
+      <div class="header__corner">
+        <div class="header__corner-dots" data-header-dots-slot></div>
+      </div>
     </header>
     <section class="about">
       <div class="container">
