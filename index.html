@@ -119,6 +119,7 @@
                 <path d="M1 1H90.5" stroke="black" stroke-width="2" stroke-linecap="round" />
               </svg>
             </div>
+            <div class="header__menu-contact" data-menu-contact-slot></div>
             <div class="header__menu-socials" data-menu-socials-slot></div>
           </div>
           <div class="header__bottom-end" data-header-bottom-end>
@@ -605,12 +606,7 @@
             <img class="projects__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
           </button>
         </div>
-        <div class="projects__slider-dots" role="tablist" aria-label="Слайди проєктів">
-          <button type="button" class="projects__slider-dot is-active" role="tab" aria-selected="true"
-            aria-label="Слайд 1" data-slide-to="0"></button>
-          <button type="button" class="projects__slider-dot" role="tab" aria-selected="false" aria-label="Слайд 2"
-            data-slide-to="1"></button>
-        </div>
+        <div class="projects__slider-dots" role="tablist" aria-label="Слайди проєктів"></div>
       </div>
     </section>
     <section class="leadership">
@@ -663,8 +659,10 @@
           <div class="reports__inner">
             <ul class="reports__list">
               <li class="reports__row">
-                <div class="reports__cell reports__cell--name">Річний звіт за 2025 рік</div>
-                <div class="reports__cell reports__cell--desc">Ліцензія на медичну практику</div>
+                <div class="reports__texts">
+                  <div class="reports__cell reports__cell--name">Річний звіт за 2025 рік</div>
+                  <div class="reports__cell reports__cell--desc">Ліцензія на медичну практику</div>
+                </div>
                 <div class="reports__cell reports__cell--date">20.06.2026</div>
                 <div class="reports__cell reports__cell--download">
                   <button type="button" class="reports__download" data-download="./files/zvit-2025-licenziya.pdf"
@@ -675,8 +673,10 @@
                 </div>
               </li>
               <li class="reports__row">
-                <div class="reports__cell reports__cell--name">Річний звіт за 2025 рік</div>
-                <div class="reports__cell reports__cell--desc">Офіційна редакція статуту</div>
+                <div class="reports__texts">
+                  <div class="reports__cell reports__cell--name">Річний звіт за 2025 рік</div>
+                  <div class="reports__cell reports__cell--desc">Офіційна редакція статуту</div>
+                </div>
                 <div class="reports__cell reports__cell--date">14.06.2026</div>
                 <div class="reports__cell reports__cell--download">
                   <button type="button" class="reports__download" data-download="./files/zvit-2025-statut.doc"
@@ -687,8 +687,10 @@
                 </div>
               </li>
               <li class="reports__row">
-                <div class="reports__cell reports__cell--name">Річний звіт за 2024 рік</div>
-                <div class="reports__cell reports__cell--desc">Ліцензія на медичну практику</div>
+                <div class="reports__texts">
+                  <div class="reports__cell reports__cell--name">Річний звіт за 2024 рік</div>
+                  <div class="reports__cell reports__cell--desc">Ліцензія на медичну практику</div>
+                </div>
                 <div class="reports__cell reports__cell--date">20.06.2026</div>
                 <div class="reports__cell reports__cell--download">
                   <button type="button" class="reports__download" data-download="./files/zvit-2024-licenziya.xls"
@@ -699,8 +701,10 @@
                 </div>
               </li>
               <li class="reports__row">
-                <div class="reports__cell reports__cell--name">Річний звіт за 2025 рік</div>
-                <div class="reports__cell reports__cell--desc">Офіційна редакція статуту</div>
+                <div class="reports__texts">
+                  <div class="reports__cell reports__cell--name">Річний звіт за 2025 рік</div>
+                  <div class="reports__cell reports__cell--desc">Офіційна редакція статуту</div>
+                </div>
                 <div class="reports__cell reports__cell--date">14.06.2026</div>
                 <div class="reports__cell reports__cell--download">
                   <button type="button" class="reports__download" data-download="./files/zvit-2025-statut.doc"
@@ -889,6 +893,7 @@
               <img class="media__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
             </button>
           </div>
+          <div class="media__slider-dots" role="tablist" aria-label="Слайди медіа"></div>
         </div>
       </section>
       <section class="news">
@@ -1107,6 +1112,7 @@
               <img class="news__slider-arrow-icon" src="./images/slider-arrow.svg" alt="">
             </button>
           </div>
+          <div class="news__slider-dots" role="tablist" aria-label="Слайди новин"></div>
         </div>
       </section>
       <section class="activities">
@@ -1458,7 +1464,7 @@
             </div>
           </div>
         </div>
-        <div class="container">
+        <div class="container footer__main">
           <a class="footer__logo" href="#">
             <img src="./images/footer-logo.svg" alt="">
           </a>

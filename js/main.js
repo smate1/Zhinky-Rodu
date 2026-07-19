@@ -144,15 +144,18 @@
 	const menu = document.querySelector('[data-header-menu]')
 	const openBtn = document.querySelector('[data-menu-open]')
 	const closeBtn = document.querySelector('[data-menu-close]')
+	const headerTop = document.querySelector('.header__top')
 	const headerRight = document.querySelector('[data-header-right]')
 	const burgerSlot = document.querySelector('[data-burger-slot]')
 	const bottomEnd = document.querySelector('[data-header-bottom-end]')
 	const language = document.querySelector('[data-header-language]')
 	const socials = document.querySelector('[data-header-socials]')
 	const search = document.querySelector('[data-header-search]')
+	const contact = document.querySelector('.header__contact')
 	const languageSlot = document.querySelector('[data-menu-language-slot]')
 	const searchSlot = document.querySelector('[data-menu-search-slot]')
 	const socialsSlot = document.querySelector('[data-menu-socials-slot]')
+	const contactSlot = document.querySelector('[data-menu-contact-slot]')
 
 	if (!header || !menu || !openBtn || !closeBtn) return
 
@@ -160,7 +163,7 @@
 	const mqMobile = window.matchMedia('(max-width: 650px)')
 
 	const placeBurger = () => {
-		if (mqMobile.matches && burgerSlot) {
+		if (mqMenu.matches && burgerSlot) {
 			burgerSlot.appendChild(openBtn)
 		} else if (headerRight) {
 			headerRight.appendChild(openBtn)
@@ -169,7 +172,7 @@
 
 	const placeSearch = () => {
 		if (!search) return
-		if (mqMobile.matches && header.classList.contains('is-menu-open') && searchSlot) {
+		if (mqMenu.matches && header.classList.contains('is-menu-open') && searchSlot) {
 			searchSlot.appendChild(search)
 		} else if (bottomEnd) {
 			const help = bottomEnd.querySelector('.header__help')
@@ -177,11 +180,21 @@
 		}
 	}
 
+	const placeContact = () => {
+		if (!contact) return
+		if (mqMenu.matches && !mqMobile.matches && contactSlot) {
+			contactSlot.appendChild(contact)
+		} else if (headerTop) {
+			headerTop.insertBefore(contact, headerRight || null)
+		}
+	}
+
 	const moveToMenu = () => {
-		if (!mqMobile.matches) return
+		if (!mqMenu.matches) return
 		if (language && languageSlot) languageSlot.appendChild(language)
 		if (search && searchSlot) searchSlot.appendChild(search)
 		if (socials && socialsSlot) socialsSlot.appendChild(socials)
+		placeContact()
 	}
 
 	const moveToDesktop = () => {
@@ -193,10 +206,15 @@
 		}
 		placeBurger()
 		placeSearch()
+		placeContact()
 	}
+
+	let menuCloseTimer = 0
 
 	const openMenu = () => {
 		if (!mqMenu.matches) return
+		window.clearTimeout(menuCloseTimer)
+		header.classList.remove('is-menu-closing')
 		moveToMenu()
 		header.classList.add('is-menu-open')
 		menu.setAttribute('aria-hidden', 'false')
@@ -205,6 +223,20 @@
 	}
 
 	const closeMenu = () => {
+		if (!header.classList.contains('is-menu-open')) return
+
+		const finishClose = () => {
+			window.clearTimeout(menuCloseTimer)
+			menu.removeEventListener('transitionend', onMenuCloseEnd)
+			header.classList.remove('is-menu-closing')
+		}
+
+		const onMenuCloseEnd = event => {
+			if (event.target !== menu || event.propertyName !== 'transform') return
+			finishClose()
+		}
+
+		header.classList.add('is-menu-closing')
 		header.classList.remove('is-menu-open')
 		header.classList.remove('header--menu-search-open')
 		menu.setAttribute('aria-hidden', 'true')
@@ -218,6 +250,9 @@
 			?.classList.remove('is-search-open')
 
 		moveToDesktop()
+
+		menu.addEventListener('transitionend', onMenuCloseEnd)
+		menuCloseTimer = window.setTimeout(finishClose, 400)
 	}
 
 	openBtn.addEventListener('click', openMenu)
@@ -242,28 +277,17 @@
 			return
 		}
 
-		if (header.classList.contains('is-menu-open') && !mqMobile.matches) {
-			if (language && headerRight) {
-				headerRight.insertBefore(language, openBtn.parentElement === headerRight ? openBtn : null)
-			}
-			if (socials && headerRight) {
-				headerRight.insertBefore(
-					socials,
-					language || (openBtn.parentElement === headerRight ? openBtn : null)
-				)
-			}
-			placeSearch()
+		if (header.classList.contains('is-menu-open') && mqMenu.matches) {
+			moveToMenu()
 			placeBurger()
-		} else if (!header.classList.contains('is-menu-open')) {
-			moveToDesktop()
 		} else {
-			placeBurger()
-			placeSearch()
+			moveToDesktop()
 		}
 	}
 
 	placeBurger()
 	placeSearch()
+	placeContact()
 	mqMenu.addEventListener('change', onViewportChange)
 	mqMobile.addEventListener('change', onViewportChange)
 })()
@@ -278,8 +302,10 @@
 	spacer.setAttribute('aria-hidden', 'true')
 	headerBottom.after(spacer)
 
+	const mqCompact = window.matchMedia('(max-width: 900px)')
+
 	const syncMobileSpacer = () => {
-		if (!window.matchMedia('(max-width: 650px)').matches) {
+		if (!mqCompact.matches) {
 			if (!headerBottom.classList.contains('is-sticky')) {
 				spacer.style.height = '0'
 			}
@@ -304,9 +330,7 @@
 	}
 
 	const updateSticky = () => {
-		const isMobile = window.matchMedia('(max-width: 650px)').matches
-
-		if (isMobile) {
+		if (mqCompact.matches) {
 			setSticky(false)
 			headerBottom.classList.toggle('is-scrolled', window.scrollY > 4)
 			return
@@ -349,10 +373,10 @@
 	if (!dots || !dotsSlot || !actions) return
 
 	const mqTablet = window.matchMedia('(max-width: 1350px)')
-	const mqMobile = window.matchMedia('(max-width: 650px)')
+	const mqCompact = window.matchMedia('(max-width: 900px)')
 
 	const syncDots = () => {
-		if (mqMobile.matches) {
+		if (mqCompact.matches) {
 			actions.appendChild(dots)
 		} else if (mqTablet.matches) {
 			dotsSlot.appendChild(dots)
@@ -363,7 +387,7 @@
 
 	syncDots()
 	mqTablet.addEventListener('change', syncDots)
-	mqMobile.addEventListener('change', syncDots)
+	mqCompact.addEventListener('change', syncDots)
 })()
 ;(function () {
 	const slider = document.querySelector('[data-header-slider]')
@@ -455,35 +479,38 @@
 	if (!slider) return
 
 	const track = slider.querySelector('.projects__slider-track')
-	const dots = slider.querySelectorAll('.projects__slider-dot')
+	const dotsContainer = slider.querySelector('.projects__slider-dots')
 	const prevBtn = slider.querySelector('.projects__slider-arrow--prev')
 	const nextBtn = slider.querySelector('.projects__slider-arrow--next')
 
-	if (!track) return
+	if (!track || !dotsContainer) return
 
-	const slidesPerView = 4
-	let items = [...track.querySelectorAll('.projects__slider-item')]
-	const originalCount = items.length
+	const originalItems = [...track.querySelectorAll('.projects__slider-item')]
+	const originalCount = originalItems.length
 
 	if (!originalCount) return
 
-	const totalPages = Math.ceil(originalCount / slidesPerView)
+	const buffer = originalCount
+	const desktopQuery = window.matchMedia('(max-width: 1450px)')
 
 	const prependFragment = document.createDocumentFragment()
-	for (let i = originalCount - slidesPerView; i < originalCount; i++) {
-		prependFragment.appendChild(items[i].cloneNode(true))
+	for (let i = 0; i < buffer; i++) {
+		prependFragment.appendChild(originalItems[i].cloneNode(true))
 	}
 	track.insertBefore(prependFragment, track.firstChild)
 
 	const appendFragment = document.createDocumentFragment()
-	for (let i = 0; i < slidesPerView; i++) {
-		appendFragment.appendChild(items[i].cloneNode(true))
+	for (let i = 0; i < buffer; i++) {
+		appendFragment.appendChild(originalItems[i].cloneNode(true))
 	}
 	track.appendChild(appendFragment)
 
-	items = [...track.querySelectorAll('.projects__slider-item')]
+	const items = [...track.querySelectorAll('.projects__slider-item')]
+	let position = buffer
+	let slidesPerPage = 4
+	let totalPages = 1
 
-	let position = slidesPerView
+	const getSlidesPerPage = () => (desktopQuery.matches ? 2 : 4)
 
 	const getItemStep = () => {
 		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
@@ -492,14 +519,17 @@
 
 	const getOffset = index => index * getItemStep()
 
-	const getLogicalPage = index => {
-		if (index >= slidesPerView + originalCount) return 0
-		if (index < slidesPerView) return totalPages - 1
-		return (index - slidesPerView) / slidesPerView
+	const getLogicalIndex = index => {
+		let logical = index - buffer
+		while (logical < 0) logical += originalCount
+		while (logical >= originalCount) logical -= originalCount
+		return logical
 	}
 
+	const getLogicalPage = index => Math.floor(getLogicalIndex(index) / slidesPerPage) % totalPages
+
 	const updateDots = page => {
-		dots.forEach((dot, i) => {
+		dotsContainer.querySelectorAll('.projects__slider-dot').forEach((dot, i) => {
 			const isActive = i === page
 			dot.classList.toggle('is-active', isActive)
 			dot.setAttribute('aria-selected', isActive ? 'true' : 'false')
@@ -513,73 +543,99 @@
 		updateDots(getLogicalPage(index))
 	}
 
+	const goToPage = page => {
+		setPosition(buffer + page * slidesPerPage, true)
+	}
+
+	const buildDots = () => {
+		const currentPage = getLogicalPage(position)
+		dotsContainer.innerHTML = ''
+
+		for (let i = 0; i < totalPages; i++) {
+			const dot = document.createElement('button')
+			dot.type = 'button'
+			dot.className = 'projects__slider-dot' + (i === currentPage ? ' is-active' : '')
+			dot.setAttribute('role', 'tab')
+			dot.setAttribute('aria-selected', i === currentPage ? 'true' : 'false')
+			dot.setAttribute('aria-label', `Слайд ${i + 1}`)
+			dot.dataset.slideTo = String(i)
+			dot.addEventListener('click', () => goToPage(i))
+			dotsContainer.appendChild(dot)
+		}
+	}
+
+	const syncMetrics = () => {
+		slidesPerPage = getSlidesPerPage()
+		totalPages = Math.ceil(originalCount / slidesPerPage)
+		buildDots()
+	}
+
+	const goNext = () => setPosition(position + slidesPerPage, true)
+	const goPrev = () => setPosition(position - slidesPerPage, true)
+
 	track.addEventListener('transitionend', event => {
 		if (event.propertyName !== 'transform') return
 
-		if (position >= slidesPerView + originalCount) {
-			setPosition(slidesPerView, false)
-		} else if (position < slidesPerView) {
-			setPosition(slidesPerView + (totalPages - 1) * slidesPerView, false)
+		if (position >= buffer + originalCount) {
+			setPosition(position - originalCount, false)
+		} else if (position < buffer) {
+			setPosition(position + originalCount, false)
 		}
 	})
-
-	const goNext = () => setPosition(position + slidesPerView, true)
-	const goPrev = () => setPosition(position - slidesPerView, true)
-
-	const goToPage = page => {
-		setPosition(slidesPerView + page * slidesPerView, true)
-	}
 
 	prevBtn?.addEventListener('click', goPrev)
 	nextBtn?.addEventListener('click', goNext)
 
-	dots.forEach(dot => {
-		dot.addEventListener('click', () => {
-			const index = Number(dot.dataset.slideTo)
-			if (!Number.isNaN(index)) goToPage(index)
-		})
-	})
+	syncMetrics()
+	setPosition(buffer, false)
 
-	setPosition(slidesPerView, false)
+	const onResize = () => {
+		const logical = getLogicalIndex(position)
+		syncMetrics()
+		const page = Math.min(Math.floor(logical / slidesPerPage), totalPages - 1)
+		setPosition(buffer + page * slidesPerPage, false)
+	}
 
-	window.addEventListener('resize', () => {
-		setPosition(position, false)
-	})
+	window.addEventListener('resize', onResize)
+	desktopQuery.addEventListener('change', onResize)
 })()
 ;(function () {
 	const slider = document.querySelector('[data-media-slider]')
 	if (!slider) return
 
 	const track = slider.querySelector('.media__slider-track')
-	const dots = slider.querySelectorAll('.media__slider-dot')
+	const dotsContainer = slider.querySelector('.media__slider-dots')
 	const prevBtn = slider.querySelector('.media__slider-arrow--prev')
 	const nextBtn = slider.querySelector('.media__slider-arrow--next')
 
-	if (!track) return
+	if (!track || !dotsContainer) return
 
-	const slidesPerView = 4
-	let items = [...track.querySelectorAll('.media__slider-item')]
-	const originalCount = items.length
+	const originalItems = [...track.querySelectorAll('.media__slider-item')]
+	const originalCount = originalItems.length
 
 	if (!originalCount) return
 
-	const totalPages = Math.ceil(originalCount / slidesPerView)
+	const buffer = originalCount
+	const desktopQuery = window.matchMedia('(max-width: 1450px)')
 
 	const prependFragment = document.createDocumentFragment()
-	for (let i = originalCount - slidesPerView; i < originalCount; i++) {
-		prependFragment.appendChild(items[i].cloneNode(true))
+	for (let i = 0; i < buffer; i++) {
+		prependFragment.appendChild(originalItems[i].cloneNode(true))
 	}
 	track.insertBefore(prependFragment, track.firstChild)
 
 	const appendFragment = document.createDocumentFragment()
-	for (let i = 0; i < slidesPerView; i++) {
-		appendFragment.appendChild(items[i].cloneNode(true))
+	for (let i = 0; i < buffer; i++) {
+		appendFragment.appendChild(originalItems[i].cloneNode(true))
 	}
 	track.appendChild(appendFragment)
 
-	items = [...track.querySelectorAll('.media__slider-item')]
+	const items = [...track.querySelectorAll('.media__slider-item')]
+	let position = buffer
+	let slidesPerPage = 4
+	let totalPages = 1
 
-	let position = slidesPerView
+	const getSlidesPerPage = () => (desktopQuery.matches ? 2 : 4)
 
 	const getItemStep = () => {
 		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
@@ -588,14 +644,17 @@
 
 	const getOffset = index => index * getItemStep()
 
-	const getLogicalPage = index => {
-		if (index >= slidesPerView + originalCount) return 0
-		if (index < slidesPerView) return totalPages - 1
-		return (index - slidesPerView) / slidesPerView
+	const getLogicalIndex = index => {
+		let logical = index - buffer
+		while (logical < 0) logical += originalCount
+		while (logical >= originalCount) logical -= originalCount
+		return logical
 	}
 
+	const getLogicalPage = index => Math.floor(getLogicalIndex(index) / slidesPerPage) % totalPages
+
 	const updateDots = page => {
-		dots.forEach((dot, i) => {
+		dotsContainer.querySelectorAll('.media__slider-dot').forEach((dot, i) => {
 			const isActive = i === page
 			dot.classList.toggle('is-active', isActive)
 			dot.setAttribute('aria-selected', isActive ? 'true' : 'false')
@@ -609,38 +668,61 @@
 		updateDots(getLogicalPage(index))
 	}
 
+	const goToPage = page => {
+		setPosition(buffer + page * slidesPerPage, true)
+	}
+
+	const buildDots = () => {
+		const currentPage = getLogicalPage(position)
+		dotsContainer.innerHTML = ''
+
+		for (let i = 0; i < totalPages; i++) {
+			const dot = document.createElement('button')
+			dot.type = 'button'
+			dot.className = 'media__slider-dot' + (i === currentPage ? ' is-active' : '')
+			dot.setAttribute('role', 'tab')
+			dot.setAttribute('aria-selected', i === currentPage ? 'true' : 'false')
+			dot.setAttribute('aria-label', `Слайд ${i + 1}`)
+			dot.dataset.slideTo = String(i)
+			dot.addEventListener('click', () => goToPage(i))
+			dotsContainer.appendChild(dot)
+		}
+	}
+
+	const syncMetrics = () => {
+		slidesPerPage = getSlidesPerPage()
+		totalPages = Math.ceil(originalCount / slidesPerPage)
+		buildDots()
+	}
+
+	const goNext = () => setPosition(position + slidesPerPage, true)
+	const goPrev = () => setPosition(position - slidesPerPage, true)
+
 	track.addEventListener('transitionend', event => {
 		if (event.propertyName !== 'transform') return
 
-		if (position >= slidesPerView + originalCount) {
-			setPosition(slidesPerView, false)
-		} else if (position < slidesPerView) {
-			setPosition(slidesPerView + (totalPages - 1) * slidesPerView, false)
+		if (position >= buffer + originalCount) {
+			setPosition(position - originalCount, false)
+		} else if (position < buffer) {
+			setPosition(position + originalCount, false)
 		}
 	})
-
-	const goNext = () => setPosition(position + slidesPerView, true)
-	const goPrev = () => setPosition(position - slidesPerView, true)
-
-	const goToPage = page => {
-		setPosition(slidesPerView + page * slidesPerView, true)
-	}
 
 	prevBtn?.addEventListener('click', goPrev)
 	nextBtn?.addEventListener('click', goNext)
 
-	dots.forEach(dot => {
-		dot.addEventListener('click', () => {
-			const index = Number(dot.dataset.slideTo)
-			if (!Number.isNaN(index)) goToPage(index)
-		})
-	})
+	syncMetrics()
+	setPosition(buffer, false)
 
-	setPosition(slidesPerView, false)
+	const onResize = () => {
+		const logical = getLogicalIndex(position)
+		syncMetrics()
+		const page = Math.min(Math.floor(logical / slidesPerPage), totalPages - 1)
+		setPosition(buffer + page * slidesPerPage, false)
+	}
 
-	window.addEventListener('resize', () => {
-		setPosition(position, false)
-	})
+	window.addEventListener('resize', onResize)
+	desktopQuery.addEventListener('change', onResize)
 })()
 ;(function () {
 	const slider = document.querySelector('[data-activities-slider]')
@@ -743,35 +825,38 @@
 	if (!slider) return
 
 	const track = slider.querySelector('.news__slider-track')
-	const dots = slider.querySelectorAll('.news__slider-dot')
+	const dotsContainer = slider.querySelector('.news__slider-dots')
 	const prevBtn = slider.querySelector('.news__slider-arrow--prev')
 	const nextBtn = slider.querySelector('.news__slider-arrow--next')
 
-	if (!track) return
+	if (!track || !dotsContainer) return
 
-	const slidesPerView = 4
-	let items = [...track.querySelectorAll('.news__slider-item')]
-	const originalCount = items.length
+	const originalItems = [...track.querySelectorAll('.news__slider-item')]
+	const originalCount = originalItems.length
 
 	if (!originalCount) return
 
-	const totalPages = Math.ceil(originalCount / slidesPerView)
+	const buffer = originalCount
+	const desktopQuery = window.matchMedia('(max-width: 1450px)')
 
 	const prependFragment = document.createDocumentFragment()
-	for (let i = originalCount - slidesPerView; i < originalCount; i++) {
-		prependFragment.appendChild(items[i].cloneNode(true))
+	for (let i = 0; i < buffer; i++) {
+		prependFragment.appendChild(originalItems[i].cloneNode(true))
 	}
 	track.insertBefore(prependFragment, track.firstChild)
 
 	const appendFragment = document.createDocumentFragment()
-	for (let i = 0; i < slidesPerView; i++) {
-		appendFragment.appendChild(items[i].cloneNode(true))
+	for (let i = 0; i < buffer; i++) {
+		appendFragment.appendChild(originalItems[i].cloneNode(true))
 	}
 	track.appendChild(appendFragment)
 
-	items = [...track.querySelectorAll('.news__slider-item')]
+	const items = [...track.querySelectorAll('.news__slider-item')]
+	let position = buffer
+	let slidesPerPage = 4
+	let totalPages = 1
 
-	let position = slidesPerView
+	const getSlidesPerPage = () => (desktopQuery.matches ? 2 : 4)
 
 	const getItemStep = () => {
 		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
@@ -780,14 +865,17 @@
 
 	const getOffset = index => index * getItemStep()
 
-	const getLogicalPage = index => {
-		if (index >= slidesPerView + originalCount) return 0
-		if (index < slidesPerView) return totalPages - 1
-		return (index - slidesPerView) / slidesPerView
+	const getLogicalIndex = index => {
+		let logical = index - buffer
+		while (logical < 0) logical += originalCount
+		while (logical >= originalCount) logical -= originalCount
+		return logical
 	}
 
+	const getLogicalPage = index => Math.floor(getLogicalIndex(index) / slidesPerPage) % totalPages
+
 	const updateDots = page => {
-		dots.forEach((dot, i) => {
+		dotsContainer.querySelectorAll('.news__slider-dot').forEach((dot, i) => {
 			const isActive = i === page
 			dot.classList.toggle('is-active', isActive)
 			dot.setAttribute('aria-selected', isActive ? 'true' : 'false')
@@ -801,38 +889,61 @@
 		updateDots(getLogicalPage(index))
 	}
 
+	const goToPage = page => {
+		setPosition(buffer + page * slidesPerPage, true)
+	}
+
+	const buildDots = () => {
+		const currentPage = getLogicalPage(position)
+		dotsContainer.innerHTML = ''
+
+		for (let i = 0; i < totalPages; i++) {
+			const dot = document.createElement('button')
+			dot.type = 'button'
+			dot.className = 'news__slider-dot' + (i === currentPage ? ' is-active' : '')
+			dot.setAttribute('role', 'tab')
+			dot.setAttribute('aria-selected', i === currentPage ? 'true' : 'false')
+			dot.setAttribute('aria-label', `Слайд ${i + 1}`)
+			dot.dataset.slideTo = String(i)
+			dot.addEventListener('click', () => goToPage(i))
+			dotsContainer.appendChild(dot)
+		}
+	}
+
+	const syncMetrics = () => {
+		slidesPerPage = getSlidesPerPage()
+		totalPages = Math.ceil(originalCount / slidesPerPage)
+		buildDots()
+	}
+
+	const goNext = () => setPosition(position + slidesPerPage, true)
+	const goPrev = () => setPosition(position - slidesPerPage, true)
+
 	track.addEventListener('transitionend', event => {
 		if (event.propertyName !== 'transform') return
 
-		if (position >= slidesPerView + originalCount) {
-			setPosition(slidesPerView, false)
-		} else if (position < slidesPerView) {
-			setPosition(slidesPerView + (totalPages - 1) * slidesPerView, false)
+		if (position >= buffer + originalCount) {
+			setPosition(position - originalCount, false)
+		} else if (position < buffer) {
+			setPosition(position + originalCount, false)
 		}
 	})
-
-	const goNext = () => setPosition(position + slidesPerView, true)
-	const goPrev = () => setPosition(position - slidesPerView, true)
-
-	const goToPage = page => {
-		setPosition(slidesPerView + page * slidesPerView, true)
-	}
 
 	prevBtn?.addEventListener('click', goPrev)
 	nextBtn?.addEventListener('click', goNext)
 
-	dots.forEach(dot => {
-		dot.addEventListener('click', () => {
-			const index = Number(dot.dataset.slideTo)
-			if (!Number.isNaN(index)) goToPage(index)
-		})
-	})
+	syncMetrics()
+	setPosition(buffer, false)
 
-	setPosition(slidesPerView, false)
+	const onResize = () => {
+		const logical = getLogicalIndex(position)
+		syncMetrics()
+		const page = Math.min(Math.floor(logical / slidesPerPage), totalPages - 1)
+		setPosition(buffer + page * slidesPerPage, false)
+	}
 
-	window.addEventListener('resize', () => {
-		setPosition(position, false)
-	})
+	window.addEventListener('resize', onResize)
+	desktopQuery.addEventListener('change', onResize)
 })()
 ;(function () {
 	const slider = document.querySelector('[data-useful-slider]')
