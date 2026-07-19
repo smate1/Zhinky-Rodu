@@ -1679,7 +1679,6 @@ body {
 }
 
 .reports__cell--name {
-	padding-right: 24px;
 	color: var(--Blue, #003c77);
 	font-family: Montserrat;
 	font-size: 18px;
@@ -3967,7 +3966,7 @@ body {
 	}
 
 	.about__title {
-		font-size: 40px;
+		font-size: 36px;
 	}
 
 	.mission {
@@ -3980,7 +3979,7 @@ body {
 	}
 
 	.mission__title {
-		font-size: 40px;
+		font-size: 36px;
 		margin-top: 24px;
 	}
 
@@ -4031,7 +4030,7 @@ body {
 	}
 
 	.projects__title {
-		font-size: 40px;
+		font-size: 36px;
 	}
 
 	.projects__inner {
@@ -4121,7 +4120,7 @@ body {
 	}
 
 	.leadership__title {
-		font-size: 40px;
+		font-size: 36px;
 	}
 
 	.leadership__subtitle {
@@ -4140,11 +4139,12 @@ body {
 	}
 
 	.reports__title {
-		font-size: 40px;
+		font-size: 36px;
 	}
 
 	.reports__list {
 		margin-bottom: 32px;
+		gap: 8px;
 	}
 
 	.reports__row {
@@ -4156,8 +4156,17 @@ body {
 		padding: 14px 16px;
 	}
 
+	.reports__row:nth-child(odd) {
+		border: 1px solid #dfe3e8;
+		border-radius: 16px;
+	}
+
 	.reports__texts {
+		display: flex;
+		flex-direction: column;
 		grid-area: texts;
+		gap: 2px;
+		min-width: 0;
 	}
 
 	.reports__cell--date {
@@ -4811,6 +4820,7 @@ body {
 
 	.reports__list {
 		margin-bottom: 28px;
+		gap: 8px;
 	}
 
 	.reports__row {
@@ -4823,13 +4833,21 @@ body {
 		border-radius: 16px;
 	}
 
+	.reports__row:nth-child(odd) {
+		border: 1px solid #dfe3e8;
+		border-radius: 16px;
+	}
+
 	.reports__row:nth-child(even) {
 		border-radius: 16px;
 	}
 
 	.reports__texts {
+		display: flex;
+		flex-direction: column;
 		grid-area: texts;
 		gap: 4px;
+		min-width: 0;
 	}
 
 	.reports__cell--name {
@@ -5151,7 +5169,7 @@ body {
 
 	.footer__title {
 		margin-bottom: 16px;
-		font-size: 32px;
+		font-size: 36px;
 	}
 
 	.partners__marquee {
@@ -5321,6 +5339,10 @@ body {
 }
 
 @media (max-width: 900px) {
+	.title {
+		font-size: 36px;
+	}
+
 	.header {
 		display: flex;
 		flex-direction: column;
@@ -6140,5 +6162,79 @@ body {
 		font-weight: 700;
 		line-height: normal;
 		text-align: center;
+	}
+}
+
+@media (max-width: 550px) {
+	.reports__title {
+		text-align: center;
+	}
+
+	.reports__row {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			'texts'
+			'date'
+			'download';
+		gap: 10px;
+		padding: 16px;
+		justify-items: center;
+		text-align: center;
+	}
+
+	.reports__texts {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		grid-area: texts;
+		gap: 4px;
+		min-width: 0;
+		width: 100%;
+	}
+
+	.reports__cell--name {
+		font-size: 16px;
+		line-height: 22px;
+		text-align: center;
+	}
+
+	.reports__cell--desc {
+		font-size: 14px;
+		line-height: 20px;
+		text-align: center;
+	}
+
+	.reports__cell--date {
+		grid-area: date;
+		align-self: center;
+		justify-self: center;
+		font-size: 14px;
+		line-height: 20px;
+		text-align: center;
+	}
+
+	.reports__cell--download {
+		grid-area: download;
+		justify-self: center;
+		width: auto;
+	}
+
+	.reports__download {
+		width: auto;
+		justify-content: center;
+		font-size: 14px;
+		line-height: 20px;
+		gap: 10px;
+		text-align: center;
+	}
+
+	.reports__download-icon {
+		width: 40px;
+		height: 40px;
+	}
+
+	.reports__button {
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
