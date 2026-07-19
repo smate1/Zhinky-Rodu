@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Підтримка — Жінки Роду</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/reset.css">
+</head>
+
+<body>
+  <main class="main main--support">
+    <header class="header">
+      <div class="container">
+        <div class="header__top">
+          <div class="header__contact">
+            <a class="header__mail" href="mailto:zhinky_rodu@gmail.com">
+              <img class="header__contact-icon" src="./images/mail.svg" alt="">
+              <span class="header__contact-email">zhinky_rodu@gmail.com</span>
+            </a>
+            <img class="header__circle" src="./images/elipse.svg" alt="">
+            <a class="header__phone" href="tel:+380996694934">
+              <img class="header__contact-icon" src="./images/phone.svg" alt="">
+              <span class="header__contact-phone">+38 099 669 49 34</span>
+            </a>
+          </div>
+          <div class="header__right" data-header-right>
+            <div class="header__socials" data-header-socials>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/facebook.svg" alt="">
+              </a>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/youtube.svg" alt="">
+              </a>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/instagram.svg" alt="">
+              </a>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/telegram.svg" alt="">
+              </a>
+            </div>
+            <div class="header__language" data-language-dropdown data-header-language>
+              <button type="button" class="header__language-trigger" aria-expanded="false" aria-haspopup="listbox"
+                aria-label="Мова">
+                <img class="header__language-icon" src="./images/globe.svg" alt="" aria-hidden="true">
+                <span class="header__language-value">Ukr</span>
+              </button>
+              <ul class="header__language-menu" role="listbox" aria-hidden="true">
+                <li class="header__language-option is-active" role="option" data-value="ua" aria-selected="true">Ukr
+                </li>
+                <li class="header__language-option" role="option" data-value="en" aria-selected="false">Eng</li>
+              </ul>
+              <select class="header__language-native" id="language-select" name="language" tabindex="-1"
+                aria-hidden="true">
+                <option value="ukr" selected>Ukr</option>
+                <option value="en">Eng</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="header__bottom" data-header-bottom>
+          <div class="header__burger-slot" data-burger-slot>
+            <button type="button" class="header__burger" data-menu-open aria-expanded="false"
+              aria-controls="header-menu" aria-label="Відкрити меню">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"
+                aria-hidden="true">
+                <path d="M8 15H32M12 20H28M15 25H25" stroke="#003C77" stroke-width="3" stroke-linecap="round" />
+              </svg>
+            </button>
+          </div>
+          <a class="header__logo" href="./index.html">
+            <img src="./images/header-logo.svg" alt="Жінки Роду">
+          </a>
+          <a class="header__logo-mobile" href="./index.html">
+            <img class="header__logo-mobile-1" src="./images/logo-mobile-1.svg" alt="Жінки Роду">
+            <img class="header__logo-mobile-2" src="./images/logo-mobile-2.svg" alt="">
+          </a>
+          <div class="header__menu" id="header-menu" data-header-menu aria-hidden="true">
+            <div class="header__menu-bar">
+              <button type="button" class="header__menu-close" data-menu-close aria-label="Закрити меню">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true">
+                  <path d="M24 12L16 20L24 28" stroke="#003C77" stroke-width="3" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="header__menu-language" data-menu-language-slot></div>
+              <div class="header__menu-search" data-menu-search-slot></div>
+            </div>
+            <div class="header__center" data-header-center>
+              <nav class="header__nav">
+                <a class="header__nav-link" href="#">Про фонд</a>
+                <div class="header__nav-dropdown" data-projects-dropdown>
+                  <button type="button" class="header__nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true"
+                    aria-controls="projects-dropdown-menu">
+                    <span>Проєкти</span>
+                  </button>
+                  <img class="header__nav-dropdown-arrow" src="./images/dropdown-arrow.svg" alt="" aria-hidden="true">
+                  <ul class="header__nav-dropdown-menu" id="projects-dropdown-menu" aria-hidden="true">
+                    <li><a class="header__nav-dropdown-link" href="#">Світло поколінь</a></li>
+                    <li><a class="header__nav-dropdown-link" href="#">Материнське дерево</a></li>
+                    <li><a class="header__nav-dropdown-link" href="#">Коріння життя</a></li>
+                    <li><a class="header__nav-dropdown-link" href="#">Від матері до доньки</a></li>
+                  </ul>
+                </div>
+                <a class="header__nav-link" href="#">Партнери</a>
+                <a class="header__nav-link" href="#">Керівництво</a>
+                <a class="header__nav-link" href="#">Новини</a>
+              </nav>
+              <svg class="header__menu-divider" width="92" height="2" viewBox="0 0 92 2" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M1 1H90.5" stroke="black" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="header__menu-contact" data-menu-contact-slot></div>
+            <div class="header__menu-socials" data-menu-socials-slot></div>
+          </div>
+          <div class="header__bottom-end" data-header-bottom-end>
+            <div class="header__search" data-header-search>
+              <form class="header__search-form" role="search" action="#" method="get">
+                <label class="header__search-label" for="header-search-input">Пошук</label>
+                <input type="search" class="header__search-input" id="header-search-input" name="q"
+                  placeholder="Пошук..." autocomplete="off">
+                <button type="button" class="header__search-toggle" aria-expanded="false"
+                  aria-controls="header-search-input" aria-label="Пошук">
+                  <img class="header__search-img" src="./images/search.svg" alt="">
+                </button>
+              </form>
+            </div>
+            <a class="header__help button" href="#">
+              <img class="header__help-icon" src="./images/heart-handshake.svg" alt="">
+              <img class="header__help-icon-mobile" src="./images/mobile-heartsvg.svg" alt="">
+              <span class="header__help-text">Допомогти</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <section class="support">
+      <div class="container">
+        <h2 class="support__title title">
+          Підтримати організацію
+        </h2>
+        <div class="support__card">
+          <h3 class="support__org">Громадська організація «ЖІНКИ РОДУ»</h3>
+          <p class="support__subtitle">Для юридичних та фізичних осіб</p>
+
+          <div class="support__tabs" role="tablist" aria-label="Спосіб переказу">
+            <button type="button" class="support__tab is-active" role="tab" id="support-tab-ua"
+              aria-selected="true" aria-controls="support-panel-ua" data-support-tab="ua">
+              Переказ по Україні
+            </button>
+            <button type="button" class="support__tab" role="tab" id="support-tab-abroad"
+              aria-selected="false" aria-controls="support-panel-abroad" data-support-tab="abroad"
+              tabindex="-1">
+              Переказ з-за кордону
+            </button>
+          </div>
+
+          <div class="support__panels">
+            <div class="support__panel is-active" role="tabpanel" id="support-panel-ua"
+              aria-labelledby="support-tab-ua" data-support-panel="ua" aria-hidden="false">
+              <div class="support__fields">
+                <div class="support__row support__row--thirds">
+                  <div class="support__field">
+                    <button type="button" class="support__copy" data-copy="39895749"
+                      aria-label="Копіювати код ЄДРПОУ">
+                      <img src="./images/copy.svg" alt="" aria-hidden="true">
+                    </button>
+                    <span class="support__label">Код ЄДРПОУ</span>
+                    <span class="support__value">39895749</span>
+                  </div>
+                  <div class="support__field">
+                    <button type="button" class="support__copy" data-copy="ПриватБанк"
+                      aria-label="Копіювати назву банку">
+                      <img src="./images/copy.svg" alt="" aria-hidden="true">
+                    </button>
+                    <span class="support__label">АТ КБ</span>
+                    <span class="support__value">ПриватБанк</span>
+                  </div>
+                  <div class="support__field">
+                    <button type="button" class="support__copy" data-copy="335548 р/р"
+                      aria-label="Копіювати МФО">
+                      <img src="./images/copy.svg" alt="" aria-hidden="true">
+                    </button>
+                    <span class="support__label">МФО</span>
+                    <span class="support__value">335548 р/р</span>
+                  </div>
+                </div>
+                <div class="support__field">
+                  <button type="button" class="support__copy"
+                    data-copy="UA973355480000026005053626933" aria-label="Копіювати IBAN">
+                    <img src="./images/copy.svg" alt="" aria-hidden="true">
+                  </button>
+                  <span class="support__label">IBAN</span>
+                  <span class="support__value">UA973355480000026005053626933</span>
+                </div>
+                <div class="support__field">
+                  <button type="button" class="support__copy"
+                    data-copy="«Благодійний внесок на статутну діяльність»"
+                    aria-label="Копіювати призначення платежу">
+                    <img src="./images/copy.svg" alt="" aria-hidden="true">
+                  </button>
+                  <span class="support__label">Призначення платежу</span>
+                  <span class="support__value">«Благодійний внесок на статутну діяльність»</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="support__panel" role="tabpanel" id="support-panel-abroad"
+              aria-labelledby="support-tab-abroad" data-support-panel="abroad" aria-hidden="true" inert>
+              <div class="support__fields">
+                <div class="support__row support__row--thirds">
+                  <div class="support__field">
+                    <button type="button" class="support__copy" data-copy="39895749"
+                      aria-label="Копіювати код ЄДРПОУ">
+                      <img src="./images/copy.svg" alt="" aria-hidden="true">
+                    </button>
+                    <span class="support__label">Код ЄДРПОУ</span>
+                    <span class="support__value">39895749</span>
+                  </div>
+                  <div class="support__field">
+                    <button type="button" class="support__copy" data-copy="ПриватБанк"
+                      aria-label="Копіювати назву банку">
+                      <img src="./images/copy.svg" alt="" aria-hidden="true">
+                    </button>
+                    <span class="support__label">АТ КБ</span>
+                    <span class="support__value">ПриватБанк</span>
+                  </div>
+                  <div class="support__field">
+                    <button type="button" class="support__copy" data-copy="PBANUA2X"
+                      aria-label="Копіювати SWIFT">
+                      <img src="./images/copy.svg" alt="" aria-hidden="true">
+                    </button>
+                    <span class="support__label">SWIFT</span>
+                    <span class="support__value">PBANUA2X</span>
+                  </div>
+                </div>
+                <div class="support__field">
+                  <button type="button" class="support__copy"
+                    data-copy="UA973355480000026005053626933" aria-label="Копіювати IBAN">
+                    <img src="./images/copy.svg" alt="" aria-hidden="true">
+                  </button>
+                  <span class="support__label">IBAN</span>
+                  <span class="support__value">UA973355480000026005053626933</span>
+                </div>
+                <div class="support__field">
+                  <button type="button" class="support__copy"
+                    data-copy="«Благодійний внесок на статутну діяльність»"
+                    aria-label="Копіювати призначення платежу">
+                    <img src="./images/copy.svg" alt="" aria-hidden="true">
+                  </button>
+                  <span class="support__label">Призначення платежу</span>
+                  <span class="support__value">«Благодійний внесок на статутну діяльність»</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      <img class="footer__decor" src="./images/footer-decor.svg" alt="" aria-hidden="true">
+      <div class="container footer__partners">
+        <h2 class="footer__title title">
+          Партнери фонду
+        </h2>
+      </div>
+      <div class="partners__marquee">
+        <div class="partners__track">
+          <div class="partners__group">
+            <img src="./images/partners-1.svg" alt="">
+            <img src="./images/partners-2.svg" alt="">
+            <img src="./images/partners-3.svg" alt="">
+            <img src="./images/partners-4.svg" alt="">
+            <img src="./images/partners-5.svg" alt="">
+            <img src="./images/partners-6.svg" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="container footer__main">
+        <a class="footer__logo" href="./index.html">
+          <img src="./images/footer-logo.svg" alt="">
+        </a>
+        <nav class="footer__nav">
+          <div class="footer__nav-column footer__nav-column--contacts">
+            <a class="header__mail" href="mailto:zhinky_rodu@gmail.com">
+              <img src="./images/mail.svg" alt="">
+              <span class="header__contact-email">zhinky_rodu@gmail.com</span>
+            </a>
+            <a class="header__phone" href="tel:+380996694934">
+              <img src="./images/phone.svg" alt="">
+              <span class="header__contact-phone">+38 099 669 49 34</span>
+            </a>
+            <div class="header__socials">
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/facebook.svg" alt="">
+              </a>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/youtube.svg" alt="">
+              </a>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/instagram.svg" alt="">
+              </a>
+              <a class="header__social-link" href="#">
+                <img class="header__social-img" src="./images/telegram.svg" alt="">
+              </a>
+            </div>
+          </div>
+          <div class="footer__nav-column">
+            <h3 class="footer__nav-title">Меню</h3>
+            <ul class="footer__nav-list footer__nav-list--menu">
+              <li><a class="footer__nav-link" href="#">Про фонд</a></li>
+              <li><a class="footer__nav-link" href="#">Проєкти</a></li>
+              <li><a class="footer__nav-link" href="#">Партнери</a></li>
+              <li><a class="footer__nav-link" href="#">Керівництво</a></li>
+              <li><a class="footer__nav-link" href="#">Новини</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-column">
+            <h3 class="footer__nav-title">Останні новини</h3>
+            <ul class="footer__nav-list footer__nav-list--divided">
+              <li>
+                <a class="footer__nav-link" href="#">
+                  Тендер для національного проєкту “Досвід має значення”
+                </a>
+              </li>
+              <li>
+                <a class="footer__nav-link" href="#">
+                  Шукаємо родини ВПО, які хочуть почати нове життя
+                </a>
+              </li>
+              <li>
+                <a class="footer__nav-link" href="#">
+                  Гуманітарний хаб
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer__nav-column">
+            <h3 class="footer__nav-title">Проєкти</h3>
+            <ul class="footer__nav-list footer__nav-list--divided">
+              <li>
+                <a class="footer__nav-link" href="#">
+                  Програма «Впевнений крок» вже працює в Ірпені
+                </a>
+              </li>
+              <li>
+                <a class="footer__nav-link" href="#">
+                  Mind-Body Medicine стартують у кожному сервісі Save Ukraine
+                </a>
+              </li>
+              <li>
+                <a class="footer__nav-link" href="#">
+                  Обід без Бід
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__copy">
+        <div class="container footer__copy-inner">
+          <img class="footer__copy-radius footer__copy-radius--left" src="./images/radius-black.svg" alt=""
+            aria-hidden="true">
+          <img class="footer__copy-radius footer__copy-radius--right" src="./images/radius-black.svg" alt=""
+            aria-hidden="true">
+          <p class="footer__copy-text">
+            © 2026 - "Жінки роду". Усі права захищені
+          </p>
+          <div class="footer__copy-links">
+            <a class="footer__copy-link" href="#">Політика конфіденційності</a>
+            <img class="footer__copy-circle" src="./images/elipse-yellow.svg" alt="" aria-hidden="true">
+            <a class="footer__copy-link" href="#">Умови використання</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+</body>
+<script src="./js/main.js"></script>
+
+</html>

@@ -1128,3 +1128,54 @@
 		resizeTimer = setTimeout(buildMarquee, 150)
 	})
 })()
+;(function () {
+	const root = document.querySelector('.support')
+	if (!root) return
+
+	const tabs = root.querySelectorAll('[data-support-tab]')
+	const panels = root.querySelectorAll('[data-support-panel]')
+
+	const activateTab = tabId => {
+		tabs.forEach(tab => {
+			const isActive = tab.dataset.supportTab === tabId
+			tab.classList.toggle('is-active', isActive)
+			tab.setAttribute('aria-selected', isActive ? 'true' : 'false')
+			tab.tabIndex = isActive ? 0 : -1
+		})
+
+		panels.forEach(panel => {
+			const isActive = panel.dataset.supportPanel === tabId
+			panel.classList.toggle('is-active', isActive)
+			panel.setAttribute('aria-hidden', isActive ? 'false' : 'true')
+			panel.toggleAttribute('inert', !isActive)
+		})
+	}
+
+	tabs.forEach(tab => {
+		tab.addEventListener('click', () => activateTab(tab.dataset.supportTab))
+	})
+
+	root.querySelectorAll('[data-copy]').forEach(button => {
+		button.addEventListener('click', async () => {
+			const value = button.getAttribute('data-copy')
+			if (!value) return
+
+			try {
+				await navigator.clipboard.writeText(value)
+			} catch {
+				const input = document.createElement('textarea')
+				input.value = value
+				input.setAttribute('readonly', '')
+				input.style.position = 'absolute'
+				input.style.left = '-9999px'
+				document.body.appendChild(input)
+				input.select()
+				document.execCommand('copy')
+				document.body.removeChild(input)
+			}
+
+			button.classList.add('is-copied')
+			window.setTimeout(() => button.classList.remove('is-copied'), 1200)
+		})
+	})
+})()
