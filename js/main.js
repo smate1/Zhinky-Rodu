@@ -389,6 +389,91 @@
 	mqTablet.addEventListener('change', syncDots)
 	mqCompact.addEventListener('change', syncDots)
 })()
+
+function bindSliderSwipe(element, { onPrev, onNext, enabled }) {
+	if (!element || typeof onPrev !== 'function' || typeof onNext !== 'function') return
+
+	const THRESHOLD = 40
+	const LOCK = 10
+	let startX = 0
+	let startY = 0
+	let tracking = false
+	let axis = null
+	let swiped = false
+	let pointerId = null
+
+	const isEnabled = () => (typeof enabled === 'function' ? enabled() : enabled !== false)
+
+	element.addEventListener('pointerdown', event => {
+		if (!isEnabled()) return
+		if (event.pointerType === 'mouse' && event.button !== 0) return
+		tracking = true
+		axis = null
+		swiped = false
+		pointerId = event.pointerId
+		startX = event.clientX
+		startY = event.clientY
+	})
+
+	element.addEventListener('pointermove', event => {
+		if (!tracking || event.pointerId !== pointerId) return
+
+		const dx = event.clientX - startX
+		const dy = event.clientY - startY
+
+		if (!axis) {
+			if (Math.abs(dx) < LOCK && Math.abs(dy) < LOCK) return
+			axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'
+			if (axis === 'x') {
+				try {
+					element.setPointerCapture(pointerId)
+				} catch {
+					/* ignore */
+				}
+			}
+		}
+
+		if (axis === 'y') {
+			tracking = false
+			pointerId = null
+		}
+	})
+
+	const finish = event => {
+		if (!tracking || (pointerId !== null && event.pointerId !== pointerId)) return
+
+		const dx = event.clientX - startX
+		const wasHorizontal = axis === 'x'
+		tracking = false
+		axis = null
+		pointerId = null
+
+		if (!wasHorizontal || Math.abs(dx) < THRESHOLD) return
+
+		swiped = true
+		if (dx < 0) onNext()
+		else onPrev()
+	}
+
+	element.addEventListener('pointerup', finish)
+	element.addEventListener('pointercancel', event => {
+		if (pointerId !== null && event.pointerId !== pointerId) return
+		tracking = false
+		axis = null
+		pointerId = null
+	})
+
+	element.addEventListener(
+		'click',
+		event => {
+			if (!swiped) return
+			event.preventDefault()
+			event.stopPropagation()
+			swiped = false
+		},
+		true,
+	)
+}
 ;(function () {
 	const slider = document.querySelector('[data-header-slider]')
 	if (!slider) return
@@ -405,6 +490,7 @@
 	let current = 0
 	let autoplayTimer = null
 	const AUTOPLAY_MS = 5000
+	const swipeQuery = window.matchMedia('(max-width: 900px)')
 
 	const goToSlide = index => {
 		const total = bgSlides.length
@@ -465,6 +551,18 @@
 		})
 	})
 
+	bindSliderSwipe(slider.querySelector('.header__visual') || slider, {
+		enabled: () => swipeQuery.matches,
+		onPrev: () => {
+			goToSlide(current - 1)
+			restartAutoplay()
+		},
+		onNext: () => {
+			goToSlide(current + 1)
+			restartAutoplay()
+		},
+	})
+
 	slider.addEventListener('mouseenter', stopAutoplay)
 	slider.addEventListener('mouseleave', startAutoplay)
 	slider.addEventListener('focusin', stopAutoplay)
@@ -491,7 +589,8 @@
 	if (!originalCount) return
 
 	const buffer = originalCount
-	const desktopQuery = window.matchMedia('(max-width: 1450px)')
+	const mobileQuery = window.matchMedia('(max-width: 900px)')
+	const tabletQuery = window.matchMedia('(max-width: 1450px)')
 
 	const prependFragment = document.createDocumentFragment()
 	for (let i = 0; i < buffer; i++) {
@@ -510,7 +609,10 @@
 	let slidesPerPage = 4
 	let totalPages = 1
 
-	const getSlidesPerPage = () => (desktopQuery.matches ? 2 : 4)
+	const getSlidesPerPage = () => {
+		if (mobileQuery.matches) return 2
+		return tabletQuery.matches ? 2 : 4
+	}
 
 	const getItemStep = () => {
 		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
@@ -570,8 +672,8 @@
 		buildDots()
 	}
 
-	const goNext = () => setPosition(position + slidesPerPage, true)
-	const goPrev = () => setPosition(position - slidesPerPage, true)
+	const goNext = () => setPosition(position + 1, true)
+	const goPrev = () => setPosition(position - 1, true)
 
 	track.addEventListener('transitionend', event => {
 		if (event.propertyName !== 'transform') return
@@ -586,18 +688,24 @@
 	prevBtn?.addEventListener('click', goPrev)
 	nextBtn?.addEventListener('click', goNext)
 
+	bindSliderSwipe(slider, {
+		enabled: () => mobileQuery.matches,
+		onPrev: goPrev,
+		onNext: goNext,
+	})
+
 	syncMetrics()
 	setPosition(buffer, false)
 
 	const onResize = () => {
 		const logical = getLogicalIndex(position)
 		syncMetrics()
-		const page = Math.min(Math.floor(logical / slidesPerPage), totalPages - 1)
-		setPosition(buffer + page * slidesPerPage, false)
+		setPosition(buffer + logical, false)
 	}
 
 	window.addEventListener('resize', onResize)
-	desktopQuery.addEventListener('change', onResize)
+	mobileQuery.addEventListener('change', onResize)
+	tabletQuery.addEventListener('change', onResize)
 })()
 ;(function () {
 	const slider = document.querySelector('[data-media-slider]')
@@ -616,7 +724,8 @@
 	if (!originalCount) return
 
 	const buffer = originalCount
-	const desktopQuery = window.matchMedia('(max-width: 1450px)')
+	const mobileQuery = window.matchMedia('(max-width: 900px)')
+	const tabletQuery = window.matchMedia('(max-width: 1450px)')
 
 	const prependFragment = document.createDocumentFragment()
 	for (let i = 0; i < buffer; i++) {
@@ -635,7 +744,10 @@
 	let slidesPerPage = 4
 	let totalPages = 1
 
-	const getSlidesPerPage = () => (desktopQuery.matches ? 2 : 4)
+	const getSlidesPerPage = () => {
+		if (mobileQuery.matches) return 2
+		return tabletQuery.matches ? 2 : 4
+	}
 
 	const getItemStep = () => {
 		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
@@ -695,8 +807,8 @@
 		buildDots()
 	}
 
-	const goNext = () => setPosition(position + slidesPerPage, true)
-	const goPrev = () => setPosition(position - slidesPerPage, true)
+	const goNext = () => setPosition(position + 1, true)
+	const goPrev = () => setPosition(position - 1, true)
 
 	track.addEventListener('transitionend', event => {
 		if (event.propertyName !== 'transform') return
@@ -711,53 +823,66 @@
 	prevBtn?.addEventListener('click', goPrev)
 	nextBtn?.addEventListener('click', goNext)
 
+	bindSliderSwipe(slider, {
+		enabled: () => mobileQuery.matches,
+		onPrev: goPrev,
+		onNext: goNext,
+	})
+
 	syncMetrics()
 	setPosition(buffer, false)
 
 	const onResize = () => {
 		const logical = getLogicalIndex(position)
 		syncMetrics()
-		const page = Math.min(Math.floor(logical / slidesPerPage), totalPages - 1)
-		setPosition(buffer + page * slidesPerPage, false)
+		setPosition(buffer + logical, false)
 	}
 
 	window.addEventListener('resize', onResize)
-	desktopQuery.addEventListener('change', onResize)
+	mobileQuery.addEventListener('change', onResize)
+	tabletQuery.addEventListener('change', onResize)
 })()
 ;(function () {
 	const slider = document.querySelector('[data-activities-slider]')
 	if (!slider) return
 
 	const track = slider.querySelector('.activities__slider-track')
-	const dots = slider.querySelectorAll('.activities__slider-dot')
+	const dotsContainer = slider.querySelector('.activities__slider-dots')
 	const prevBtn = slider.querySelector('.activities__slider-arrow--prev')
 	const nextBtn = slider.querySelector('.activities__slider-arrow--next')
 
-	if (!track) return
+	if (!track || !dotsContainer) return
 
-	const slidesPerView = 4
-	let items = [...track.querySelectorAll('.activities__slider-item')]
-	const originalCount = items.length
+	const originalItems = [...track.querySelectorAll('.activities__slider-item')]
+	const originalCount = originalItems.length
 
 	if (!originalCount) return
 
-	const totalPages = Math.ceil(originalCount / slidesPerView)
+	const buffer = originalCount
+	const mobileQuery = window.matchMedia('(max-width: 900px)')
+	const tabletQuery = window.matchMedia('(max-width: 1450px)')
 
 	const prependFragment = document.createDocumentFragment()
-	for (let i = originalCount - slidesPerView; i < originalCount; i++) {
-		prependFragment.appendChild(items[i].cloneNode(true))
+	for (let i = 0; i < buffer; i++) {
+		prependFragment.appendChild(originalItems[i].cloneNode(true))
 	}
 	track.insertBefore(prependFragment, track.firstChild)
 
 	const appendFragment = document.createDocumentFragment()
-	for (let i = 0; i < slidesPerView; i++) {
-		appendFragment.appendChild(items[i].cloneNode(true))
+	for (let i = 0; i < buffer; i++) {
+		appendFragment.appendChild(originalItems[i].cloneNode(true))
 	}
 	track.appendChild(appendFragment)
 
-	items = [...track.querySelectorAll('.activities__slider-item')]
+	const items = [...track.querySelectorAll('.activities__slider-item')]
+	let position = buffer
+	let slidesPerPage = 4
+	let totalPages = 1
 
-	let position = slidesPerView
+	const getSlidesPerPage = () => {
+		if (mobileQuery.matches) return 2
+		return tabletQuery.matches ? 2 : 4
+	}
 
 	const getItemStep = () => {
 		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
@@ -766,14 +891,17 @@
 
 	const getOffset = index => index * getItemStep()
 
-	const getLogicalPage = index => {
-		if (index >= slidesPerView + originalCount) return 0
-		if (index < slidesPerView) return totalPages - 1
-		return (index - slidesPerView) / slidesPerView
+	const getLogicalIndex = index => {
+		let logical = index - buffer
+		while (logical < 0) logical += originalCount
+		while (logical >= originalCount) logical -= originalCount
+		return logical
 	}
 
+	const getLogicalPage = index => Math.floor(getLogicalIndex(index) / slidesPerPage) % totalPages
+
 	const updateDots = page => {
-		dots.forEach((dot, i) => {
+		dotsContainer.querySelectorAll('.activities__slider-dot').forEach((dot, i) => {
 			const isActive = i === page
 			dot.classList.toggle('is-active', isActive)
 			dot.setAttribute('aria-selected', isActive ? 'true' : 'false')
@@ -787,38 +915,67 @@
 		updateDots(getLogicalPage(index))
 	}
 
+	const goToPage = page => {
+		setPosition(buffer + page * slidesPerPage, true)
+	}
+
+	const buildDots = () => {
+		const currentPage = getLogicalPage(position)
+		dotsContainer.innerHTML = ''
+
+		for (let i = 0; i < totalPages; i++) {
+			const dot = document.createElement('button')
+			dot.type = 'button'
+			dot.className = 'activities__slider-dot' + (i === currentPage ? ' is-active' : '')
+			dot.setAttribute('role', 'tab')
+			dot.setAttribute('aria-selected', i === currentPage ? 'true' : 'false')
+			dot.setAttribute('aria-label', `Слайд ${i + 1}`)
+			dot.dataset.slideTo = String(i)
+			dot.addEventListener('click', () => goToPage(i))
+			dotsContainer.appendChild(dot)
+		}
+	}
+
+	const syncMetrics = () => {
+		slidesPerPage = getSlidesPerPage()
+		totalPages = Math.ceil(originalCount / slidesPerPage)
+		buildDots()
+	}
+
+	const goNext = () => setPosition(position + 1, true)
+	const goPrev = () => setPosition(position - 1, true)
+
 	track.addEventListener('transitionend', event => {
 		if (event.propertyName !== 'transform') return
 
-		if (position >= slidesPerView + originalCount) {
-			setPosition(slidesPerView, false)
-		} else if (position < slidesPerView) {
-			setPosition(slidesPerView + (totalPages - 1) * slidesPerView, false)
+		if (position >= buffer + originalCount) {
+			setPosition(position - originalCount, false)
+		} else if (position < buffer) {
+			setPosition(position + originalCount, false)
 		}
 	})
-
-	const goNext = () => setPosition(position + slidesPerView, true)
-	const goPrev = () => setPosition(position - slidesPerView, true)
-
-	const goToPage = page => {
-		setPosition(slidesPerView + page * slidesPerView, true)
-	}
 
 	prevBtn?.addEventListener('click', goPrev)
 	nextBtn?.addEventListener('click', goNext)
 
-	dots.forEach(dot => {
-		dot.addEventListener('click', () => {
-			const index = Number(dot.dataset.slideTo)
-			if (!Number.isNaN(index)) goToPage(index)
-		})
+	bindSliderSwipe(slider, {
+		enabled: () => mobileQuery.matches,
+		onPrev: goPrev,
+		onNext: goNext,
 	})
 
-	setPosition(slidesPerView, false)
+	syncMetrics()
+	setPosition(buffer, false)
 
-	window.addEventListener('resize', () => {
-		setPosition(position, false)
-	})
+	const onResize = () => {
+		const logical = getLogicalIndex(position)
+		syncMetrics()
+		setPosition(buffer + logical, false)
+	}
+
+	window.addEventListener('resize', onResize)
+	mobileQuery.addEventListener('change', onResize)
+	tabletQuery.addEventListener('change', onResize)
 })()
 ;(function () {
 	const slider = document.querySelector('[data-news-slider]')
@@ -837,7 +994,8 @@
 	if (!originalCount) return
 
 	const buffer = originalCount
-	const desktopQuery = window.matchMedia('(max-width: 1450px)')
+	const mobileQuery = window.matchMedia('(max-width: 900px)')
+	const tabletQuery = window.matchMedia('(max-width: 1450px)')
 
 	const prependFragment = document.createDocumentFragment()
 	for (let i = 0; i < buffer; i++) {
@@ -856,7 +1014,10 @@
 	let slidesPerPage = 4
 	let totalPages = 1
 
-	const getSlidesPerPage = () => (desktopQuery.matches ? 2 : 4)
+	const getSlidesPerPage = () => {
+		if (mobileQuery.matches) return 2
+		return tabletQuery.matches ? 2 : 4
+	}
 
 	const getItemStep = () => {
 		const gap = Number.parseFloat(getComputedStyle(track).gap) || 0
@@ -916,8 +1077,8 @@
 		buildDots()
 	}
 
-	const goNext = () => setPosition(position + slidesPerPage, true)
-	const goPrev = () => setPosition(position - slidesPerPage, true)
+	const goNext = () => setPosition(position + 1, true)
+	const goPrev = () => setPosition(position - 1, true)
 
 	track.addEventListener('transitionend', event => {
 		if (event.propertyName !== 'transform') return
@@ -932,18 +1093,24 @@
 	prevBtn?.addEventListener('click', goPrev)
 	nextBtn?.addEventListener('click', goNext)
 
+	bindSliderSwipe(slider, {
+		enabled: () => mobileQuery.matches,
+		onPrev: goPrev,
+		onNext: goNext,
+	})
+
 	syncMetrics()
 	setPosition(buffer, false)
 
 	const onResize = () => {
 		const logical = getLogicalIndex(position)
 		syncMetrics()
-		const page = Math.min(Math.floor(logical / slidesPerPage), totalPages - 1)
-		setPosition(buffer + page * slidesPerPage, false)
+		setPosition(buffer + logical, false)
 	}
 
 	window.addEventListener('resize', onResize)
-	desktopQuery.addEventListener('change', onResize)
+	mobileQuery.addEventListener('change', onResize)
+	tabletQuery.addEventListener('change', onResize)
 })()
 ;(function () {
 	const slider = document.querySelector('[data-useful-slider]')
@@ -1020,11 +1187,21 @@
 		setPosition(slidesPerView + page * slidesPerView, true)
 	}
 
+	const goNext = () => setPosition(position + slidesPerView, true)
+	const goPrev = () => setPosition(position - slidesPerView, true)
+	const swipeQuery = window.matchMedia('(max-width: 900px)')
+
 	dots.forEach(dot => {
 		dot.addEventListener('click', () => {
 			const index = Number(dot.dataset.slideTo)
 			if (!Number.isNaN(index)) goToPage(index)
 		})
+	})
+
+	bindSliderSwipe(slider, {
+		enabled: () => swipeQuery.matches,
+		onPrev: goPrev,
+		onNext: goNext,
 	})
 
 	setPosition(slidesPerView, false)
